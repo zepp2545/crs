@@ -37,6 +37,7 @@ Route::post('students/lessonList','StudentsController@lessonList_ajax')->name('s
 Route::put('students/dropouts/{id}','StudentsController@restore')->name('students.restore');
 Route::get('students/lessonList','StudentsController@lessonList')->name('students.lessonList');
 Route::post('students/search','StudentsController@search')->name('students.search');
+Route::post('students/quit/search','StudentsController@quit_search')->name('students.quit.search');
 Route::put('students/{id}/update','StudentsController@lesson_update')->name('students.lesson_update');
 Route::delete('students/lesson/{id}','StudentsController@lesson_delete')->name('students.lesson_delete');
 Route::get('students/dropouts','StudentsController@dropouts')->name('students.dropouts');

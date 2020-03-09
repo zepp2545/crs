@@ -206,7 +206,13 @@ class StudentsController extends Controller
     }
 
     public function dropouts(){
-      return view('students/dropouts')->with('students',StudentLesson::onlyTrashed()->orderBy('deleted_at','desc')->get());
+      if(session('searched_students')){
+        $students=session('searched_students');
+      }else{
+        $students=StudentLesson::onlyTrashed()->orderBy('deleted_at','desc')->get();
+      }
+
+      return view('students/dropouts')->with('students',$students);
     }
 
 
@@ -234,6 +240,18 @@ class StudentsController extends Controller
 
 
       return response()->json($students);
+    }
+    
+    // search quit student
+     public function quit_search(Request $request){
+
+      if($request->input('type_of_list')==='quit'){
+        $students=StudentLesson::onlyTrashed()->whereHas('student',function($query) use ($request){
+          $query->where('jaName','like','%'.$request->searched_name.'%')->orWhere('kanaName','like','%'.$request->searched_name.'%')->orWhere('enName','like','%'.$request->searched_name.'%');
+        })->orderBy('deleted_at','desc')->get();
+
+        return redirect(route('students.dropouts'))->with('searched_students',$students);
+      }
     }
 
 

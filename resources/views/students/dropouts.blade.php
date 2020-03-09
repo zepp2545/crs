@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
-
 @section('content')
   @include('partials.alerts.success')
   <h2>Students who left lesson</h2>
   <div class="searchContent my-4">
-    <form action="{{route('trials.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
+    <form action="{{route('students.quit.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
         @csrf
 
         <div class="form-group">
             <input type="text" name="searched_name" placeholder="Search a student with the name" id="nameSearchInput" aria-label="Search" class="form-control">
-            <input type="hidden" name="type_of_list" value="trials">
+            <input type="hidden" name="type_of_list" value="quit">
         </div>
 
         <input type="hidden" name="submit">
