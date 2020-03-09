@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 95861e066db3c4df4108698ab1db7d854c730558 Konan Maruyama <zepp25458565@gmail.com> 1582657429 +0900	branch: Created from HEAD
+95861e066db3c4df4108698ab1db7d854c730558 21e0c4ee8d35d45f9e0080fad14071eaa99636b7 Konan Maruyama <zepp25458565@gmail.com> 1582658665 +0900	commit: added transaction to email procedure
+21e0c4ee8d35d45f9e0080fad14071eaa99636b7 95861e066db3c4df4108698ab1db7d854c730558 Konan Maruyama <zepp25458565@gmail.com> 1582658804 +0900	reset: moving to 95861e066db3c4df
+95861e066db3c4df4108698ab1db7d854c730558 a217e7d54eec56bdba6aa7eceba32a9a7a868e79 Konan Maruyama <zepp25458565@gmail.com> 1583037336 +0900	commit: added link setting
+a217e7d54eec56bdba6aa7eceba32a9a7a868e79 d3e288550cc3e529fa5814272ec67c21399a7236 Konan Maruyama <zepp25458565@gmail.com> 1583038395 +0900	commit (merge): fixed conflict with master
+d3e288550cc3e529fa5814272ec67c21399a7236 bf354efa021ba0dd1b9ee65aadc2a3bb50155335 Konan Maruyama <zepp25458565@gmail.com> 1583090846 +0900	commit: Added update function

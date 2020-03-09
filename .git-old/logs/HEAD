@@ -1,0 +1,27 @@
+0000000000000000000000000000000000000000 6bd896675d02de653eb672d867ee6c3eb2221a50 Konan Maruyama <zepp25458565@gmail.com> 1582458029 +0900	commit (initial): initial commit
+6bd896675d02de653eb672d867ee6c3eb2221a50 6bd896675d02de653eb672d867ee6c3eb2221a50 Konan Maruyama <zepp25458565@gmail.com> 1582458113 +0900	checkout: moving from master to bulkemail
+6bd896675d02de653eb672d867ee6c3eb2221a50 4eb30570a539eb09717beecc13af5c380faf2f60 Konan Maruyama <zepp25458565@gmail.com> 1582460378 +0900	commit: added function showing grade check boxes or lesso check boxes
+4eb30570a539eb09717beecc13af5c380faf2f60 5398c28dd2fbd0e89a6fdb540ea93485c95eab60 Konan Maruyama <zepp25458565@gmail.com> 1582460725 +0900	commit: added file input in create
+5398c28dd2fbd0e89a6fdb540ea93485c95eab60 cf46624910fdbd8211c63abb98d5de4567378024 Konan Maruyama <zepp25458565@gmail.com> 1582461239 +0900	commit: modified input width in create view
+cf46624910fdbd8211c63abb98d5de4567378024 2c8dded7f779701bf3c5dc956346bb578e2edea7 Konan Maruyama <zepp25458565@gmail.com> 1582659071 +0900	commit: added transaction on email sending procedure
+2c8dded7f779701bf3c5dc956346bb578e2edea7 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1582659700 +0900	commit: added BulkEmailRequest
+909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1582832115 +0900	reset: moving to 909d5b33e95
+909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 6bd896675d02de653eb672d867ee6c3eb2221a50 Konan Maruyama <zepp25458565@gmail.com> 1582832123 +0900	checkout: moving from bulkemail to master
+6bd896675d02de653eb672d867ee6c3eb2221a50 6bd896675d02de653eb672d867ee6c3eb2221a50 Konan Maruyama <zepp25458565@gmail.com> 1582832171 +0900	checkout: moving from master to trial
+6bd896675d02de653eb672d867ee6c3eb2221a50 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1582832255 +0900	checkout: moving from trial to bulkemail
+909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 6bd896675d02de653eb672d867ee6c3eb2221a50 Konan Maruyama <zepp25458565@gmail.com> 1582832442 +0900	checkout: moving from bulkemail to master
+6bd896675d02de653eb672d867ee6c3eb2221a50 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1582832449 +0900	merge bulkemail: Fast-forward
+909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 6bd896675d02de653eb672d867ee6c3eb2221a50 Konan Maruyama <zepp25458565@gmail.com> 1582832511 +0900	checkout: moving from master to trial
+6bd896675d02de653eb672d867ee6c3eb2221a50 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1582832948 +0900	checkout: moving from trial to master
+909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1582833025 +0900	checkout: moving from master to trial
+909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 ed163ec2168c3321d2eff44a8de7954624967be2 Konan Maruyama <zepp25458565@gmail.com> 1582833079 +0900	commit: added input field
+ed163ec2168c3321d2eff44a8de7954624967be2 4ed9df5e080b99020313460e5986401fee69c911 Konan Maruyama <zepp25458565@gmail.com> 1582914712 +0900	commit: Added search student Name in Ajax and show list of students.
+4ed9df5e080b99020313460e5986401fee69c911 783a6ad60d96513af9b1af37b2196655b54acd8f Konan Maruyama <zepp25458565@gmail.com> 1582997916 +0900	commit: added function to fill out input fields with imported student information.
+783a6ad60d96513af9b1af37b2196655b54acd8f 04e2f64834f681ef4c88cc6a1f8f0e526b652d24 Konan Maruyama <zepp25458565@gmail.com> 1583034536 +0900	commit: set container overflow
+04e2f64834f681ef4c88cc6a1f8f0e526b652d24 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1583034547 +0900	checkout: moving from trial to master
+909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 04e2f64834f681ef4c88cc6a1f8f0e526b652d24 Konan Maruyama <zepp25458565@gmail.com> 1583034585 +0900	merge trial: Fast-forward
+04e2f64834f681ef4c88cc6a1f8f0e526b652d24 04e2f64834f681ef4c88cc6a1f8f0e526b652d24 Konan Maruyama <zepp25458565@gmail.com> 1583034621 +0900	checkout: moving from master to trial
+04e2f64834f681ef4c88cc6a1f8f0e526b652d24 95861e066db3c4df4108698ab1db7d854c730558 Konan Maruyama <zepp25458565@gmail.com> 1583037215 +0900	checkout: moving from trial to setting
+95861e066db3c4df4108698ab1db7d854c730558 a217e7d54eec56bdba6aa7eceba32a9a7a868e79 Konan Maruyama <zepp25458565@gmail.com> 1583037336 +0900	commit: added link setting
+a217e7d54eec56bdba6aa7eceba32a9a7a868e79 d3e288550cc3e529fa5814272ec67c21399a7236 Konan Maruyama <zepp25458565@gmail.com> 1583038395 +0900	commit (merge): fixed conflict with master
+d3e288550cc3e529fa5814272ec67c21399a7236 bf354efa021ba0dd1b9ee65aadc2a3bb50155335 Konan Maruyama <zepp25458565@gmail.com> 1583090846 +0900	commit: Added update function

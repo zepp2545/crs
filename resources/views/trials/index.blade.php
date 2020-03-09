@@ -1,0 +1,147 @@
+@extends('layouts.app')
+
+@section('content')
+  @include('partials.alerts.success')
+  <h2>Trial Student List</h2>
+  <div class="searchContent my-4">
+    <form action="{{route('trials.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
+        @csrf
+
+        <div class="form-group">
+            <input type="text" name="searched_name" placeholder="Search a student with the name" id="nameSearchInput" aria-label="Search" class="form-control">
+            <input type="hidden" name="type_of_list" value="trials">
+        </div>
+
+        <input type="hidden" name="submit">
+
+    </form>
+  </div>
+
+  <div class="customerList">
+            <h4>Trial Student List</h4>
+              <div class="studentList">
+                  <table class="table table table-bordered">
+                    <thead class="thead-dark">
+                      <tr>
+                          <th class='trialDate'>Trial Date</th>
+                          <th class='grade'>Grade</th>
+                          <th class='jaName'>名前</th>
+                          <th class='kanaName'>カナ</th>
+                          <th class="enName">Name</th>
+                          <th class='lesson'>Lesson</th>
+                          <th class="tel1">tel1</th>
+                          <th class="tel2">tel2</th>
+                          <th class='email email'>Email</th>
+                          <th class='email2 email'>Email2</th>
+                          <th class='province'>Province</th>
+                          <th class="adress">Address</th>
+                          <th class="bus">Bus Use</th>
+                          <th class="pickUp">Pick up</th>
+                          <th class="send">Send</th>
+                          <th class="note">Note</th>
+                          <th class="status">Status</th>
+                          <th class='delete'>Edit</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+                      @foreach($students as $student)
+                        <tr class="
+                          @if($student->status>=7 && $student->status<=9)
+                            continuation
+                          @elseif($student->status==5)
+                            cancelled
+                          @endif
+                        " data-id="{{$student->id}}">
+                          <td class="trialDate">{{$student['trial_date']}}</td>
+                          <td class="grade">{{optional($student->student)->grade}}</td>
+                          <td class="jaName">{{optional($student->student)->jaName}}</td>
+                          <td class="kanaName">{{optional($student->student)->kanaName}}</td>
+                          <td class="enName">{{optional($student->student)->enName}}</td>
+                          <td class="lesson">{{optional($student->lesson)->name}}</td>
+                          <td class="tel1">{{optional($student->student)->tel1}}</td>
+                          <td class="tel2">{{optional($student->student)->tel2}}</td>
+                          <td class="email1 email">{{optional($student->student)->email1}}</td>
+                          <td class="email2 email">{{optional($student->student)->email2}}</td>
+                          <td class="province">{{optional($student->student)->province}}</td>
+                          <td class="address">{{optional($student->student->address)->name}}<br>{{optional($student->student)->addDetails}}</td>
+                          <td class="bus">
+
+                            @foreach($student->bususes as $key=>$value)
+                              {{$key==$student->bus ? $value : ''}}
+                            @endforeach
+
+                          </td>
+                          <td class="pickUp">{{optional($student->pickup)->name}}<br>{{$student->pickup_details}}</td>
+                          <td class="send">{{optional($student->send)->name}}<br>{{$student->send_details}}</td>
+                          <td class="note">{{$student->note}}</td>
+                          <td class="status">
+                            <select name="status">
+                              @foreach($student->statuses as $key=>$value)
+                                <option {{$key==$student->status ? 'selected' : ''}}
+                                value="{{$key}}"
+                                 >{{$value}}</option>
+                              @endforeach
+                            </select>
+                          </td>
+                          <td><a class="btn btn-primary text-white" href="{{route('trials.edit',['trial'=>$student->id])}}">Edit</a></td>
+
+                        </tr>
+                      @endforeach
+
+                    </tbody>
+
+
+                  </table>
+
+              </div>
+
+          </div>
+
+
+
+@endsection
+
+@section('script')
+<script>
+
+  $(document).ready(function(){
+    var pre_status;
+
+    $('.status select').click(function(){
+      pre_status=$(this).val();
+    });
+
+    $('.status select').change(function(){
+      if(confirm('Are you sure you want to change the status of this student?')){
+        var student_lesson_id=$(this).parents('tr').data('id');
+        var status=$(this).children('option:selected').val();
+
+
+        $.ajax({
+          type:'POST',
+          url: "{{route('trials.status')}}",
+          data:{id:student_lesson_id,status:status,_token:'{{csrf_token()}}'}
+        }).done(function(data){
+          if(status>=7 && status<=9){
+            $("[data-id="+student_lesson_id+"]").css('background-color','#ddd');
+          }else if(status==5){
+            $("[data-id="+student_lesson_id+"]").css('background-color','red');
+          }else{
+            $("[data-id="+student_lesson_id+"]").css('background-color','white');
+          }
+        });
+
+      }else{
+        $(this).val(pre_status);
+        return;
+      }
+
+
+    });
+
+  });
+
+</script>
+@endsection

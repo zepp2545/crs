@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 6bd896675d02de653eb672d867ee6c3eb2221a50 Konan Maruyama <zepp25458565@gmail.com> 1582458096 +0900	branch: Created from master
+6bd896675d02de653eb672d867ee6c3eb2221a50 4eb30570a539eb09717beecc13af5c380faf2f60 Konan Maruyama <zepp25458565@gmail.com> 1582460378 +0900	commit: added function showing grade check boxes or lesso check boxes
+4eb30570a539eb09717beecc13af5c380faf2f60 5398c28dd2fbd0e89a6fdb540ea93485c95eab60 Konan Maruyama <zepp25458565@gmail.com> 1582460725 +0900	commit: added file input in create
+5398c28dd2fbd0e89a6fdb540ea93485c95eab60 cf46624910fdbd8211c63abb98d5de4567378024 Konan Maruyama <zepp25458565@gmail.com> 1582461239 +0900	commit: modified input width in create view
+cf46624910fdbd8211c63abb98d5de4567378024 2c8dded7f779701bf3c5dc956346bb578e2edea7 Konan Maruyama <zepp25458565@gmail.com> 1582659071 +0900	commit: added transaction on email sending procedure
+2c8dded7f779701bf3c5dc956346bb578e2edea7 909d5b33e95cebc4ae26ea83181b7d52fdcfd9b4 Konan Maruyama <zepp25458565@gmail.com> 1582659700 +0900	commit: added BulkEmailRequest

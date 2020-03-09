@@ -1,0 +1,149 @@
+html{
+  height:100%;
+}
+
+body{
+  height:100%;
+}
+
+/* .mainRow,.sidebar,.mainContent{
+  height:100%;
+} */
+
+a{
+  text-decoration: none;
+  color:#000 !important;
+}
+
+input,select{
+  max-width: 400px !important;
+}
+
+.mainRow{
+  display:flex;
+  flex-direction: row;
+  height:100%;
+}
+
+.container{
+  height:100%;
+  overflow: scroll;
+}
+
+.sidebar{
+  width:300px;
+}
+
+.mainContent{
+ width:100%;
+}
+
+.card{
+  max-width: 800px;
+}
+
+.studentList{
+  overflow: scroll;
+  width:100%;
+  /* margin:auto; */
+}
+
+#nameSearchInput{
+  width:300px !important;
+}
+
+/* table */
+table{
+  table-layout:fixed;
+}
+
+th,td{
+  width:180px;
+}
+
+.number{
+  width:50px;
+  text-align: center;
+}
+
+.grade{
+  width:70px;
+}
+
+.delete{
+  width:90px;
+}
+
+.restore{
+  width:100px;
+}
+
+.email{
+  width:400px !important;
+}
+
+.lesson{
+  width:300px;
+}
+
+.cancelled{
+  background-color: red;
+}
+
+.continuation{
+  background-color: #ddd;
+}
+
+.status option,.status select{
+  width:100%;
+}
+
+.edit{
+  width:100px;
+}
+
+
+tbody .edit{
+  text-align: center;
+}
+
+/* lessonTable */
+.lessonList td,.lessonList th{
+  min-width:70px;
+}
+
+.lessonList .number{
+  max-width:70px;
+}
+
+.lessonList .grade{
+  max-width:100px;
+}
+
+.lessonList td.bus,.lessonList th.bus{
+  width:88px;
+}
+
+.lessonList{
+  font-size: 13px;
+}
+
+tr.trial{
+  background-color: yellow;
+}
+
+span.important{
+  color:red;
+}
+
+span.trial{
+  background-color: yellow;
+  width:60px;
+  height:30px;
+}
+
+/* bulk email */
+
+.emailContainer input[type="text"],.emailContainer input[type="file"],.emailContainer select{
+  max-width:400px !important;
+}
