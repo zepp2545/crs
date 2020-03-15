@@ -24,7 +24,8 @@ class SettingsController extends Controller
             $lesson=Lesson::find($id);
 
             $request->validate([
-               'name'=>'required|unique:lessons|max:255',
+               'name'=>'required|unique:lessons,name,'.$id.'|max:255',
+               'kana'=>'required|unique:lessons,kana,'.$id.'|max:255',
                'time'=>'required',
                'day'=>'required'
             ]);
@@ -32,6 +33,7 @@ class SettingsController extends Controller
 
             $lesson->update([
             'name'=>$request->name,
+            'kana'=>$request->kana,
             'time'=>$request->time,
             'day'=>$request->day
             ]);
@@ -63,6 +65,7 @@ class SettingsController extends Controller
 
             $request->validate([
                'name'=>'required|unique:lessons|max:255',
+               'kana'=>'required|unique:lessons|max:255',
                'time'=>'required',
                'day'=>'required',
                'capacity'=>'required|integer'
@@ -71,6 +74,7 @@ class SettingsController extends Controller
 
             Lesson::create([
             'name'=>$request->name,
+            'kana'=>$request->kana,
             'time'=>$request->time,
             'day'=>$request->day,
             'capacity'=>$request->capacity
