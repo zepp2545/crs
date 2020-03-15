@@ -1,4 +1,4 @@
-<div class="{{session('lessonGroup')?'tab-pane active':'tab-pane'}}" id="lessonGroup">
+<div class="{{session('lessonGroup')?'tab-pane active':'tab-pane'}}" id="lessonGroupContent">
     @include('partials.alerts.success')
     @include('partials.alerts.error')
 
@@ -27,11 +27,13 @@
         <form action="{{route('lessonGroup.store')}}" method="post">
         @csrf
         <div class="modal-body">
-        　
             <div class="form-group">
-            <labelx for="name">Name</label>
-            <input class="form-control" type="text" name="name" id="name" placeholder="Please type a name of the lesson">
-
+                <label for="name">Name</label>
+                <input class="form-control" type="text" name="name" id="name" placeholder="Please type a name of the lesson group">
+            </div>
+            <div class="form-group">
+                <label for="kana">Kana Name</label>
+                <input class="form-control" type="text" name="kana" id="kana" placeholder="Please type a kana name of the lesson group">
             </div>
             
         </div>
@@ -82,7 +84,11 @@
                                 <label for="name">Name</label>
                                 <input class="form-control" type="text" name="name" id="name" value="{{$lesson->name}}">
 
-                            </div>                         
+                            </div>
+                            <div class="form-group">
+                                <label for="kana">Kana Name</label>
+                                <input class="form-control" type="text" name="kana" id="kana" value="{{$lesson->kana}}" placeholder="Please type a kana name of the lesson group">
+                            </div>                        
                         </div>
 
                         <!-- Modal footer -->

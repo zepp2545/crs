@@ -21,11 +21,13 @@ class LessonGroupController extends Controller
     
                 $request->validate([
                    'name'=>'required|unique:lesson_groups|max:255',
+                   'kana'=>'required|unique:lesson_groups|max:255'
                    
                 ]);
     
                 LessonGroup::create([
                 'name'=>$request->name,
+                'kana'=>$request->kana
                 
                 ]);
                 
@@ -49,12 +51,14 @@ class LessonGroupController extends Controller
             $lesson=LessonGroup::find($id);
 
             $request->validate([
-               'name'=>'required|unique:lesson_groups|max:255',
+               'name'=>'required|unique:lesson_groups,name,'.$id.',|max:255',
+               'kana'=>'required|unique:lesson_groups,kana,'.$id.',|max:255',
             ]);
 
 
             $lesson->update([
             'name'=>$request->name,
+            'kana'=>$request->kana
             ]);
             
         });

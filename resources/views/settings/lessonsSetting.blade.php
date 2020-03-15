@@ -1,4 +1,4 @@
-<div class="{{session('lessonGroup')?'tab-pane':'tab-pane active'}}" id="lesson">
+<div class="{{session('lessonGroup')?'tab-pane':'tab-pane active'}}" id="lessonContent">
     @include('partials.alerts.success')
     @include('partials.alerts.error')
     
@@ -35,6 +35,12 @@
             <div class="form-group">
             <label for="name">Name</label>
             <input class="form-control" type="text" name="name" id="name" placeholder="Please type a name of the lesson">
+
+            </div>
+
+            <div class="form-group">
+            <label for="kana">Kana Name</label>
+            <input class="form-control" type="text" name="kana" id="kana" placeholder="Please type a kananame of the lesson">
 
             </div>
 
@@ -118,6 +124,12 @@
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input class="form-control" type="text" name="name" id="name" value="{{$lesson->name}}">
+
+                        </div>
+
+                        <div class="form-group">
+                        <label for="kana">Kana Name</label>
+                        <input class="form-control" type="text" name="kana" id="kana" placeholder="Please type a kananame of the lesson" value="{{$lesson->kana}}">
 
                         </div>
 
