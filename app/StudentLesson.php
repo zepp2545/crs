@@ -28,18 +28,6 @@ class StudentLesson extends Model
       return $this->belongsTo('App\Place','send_id');
     }
 
-    public $statuses=[
-      1=>'ウェイテング中',
-      2=>'ウェイティングキャンセル済み',
-      3=>'体験検討中',
-      4=>'体験待ち',
-      5=>'体験キャンセル済み',
-      6=>'受講検討中',
-      7=>'継続',
-      8=>'申込書提出済',
-      9=>'休会',
-    ];
-
     public $bususes=[
       1=>'利用しない',
       2=>'往復',

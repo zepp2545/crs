@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Lesson;
 use App\Place;
+use App\LessonGroup;
 
 class SettingsController extends Controller
 {
@@ -13,7 +14,7 @@ class SettingsController extends Controller
     //lesson setting
 
     public function lesson(){
-        return view('settings/lessons')->with('lessons',Lesson::all());
+        return view('settings/lessons')->with('lessons',Lesson::all())->with('lessonGroups',LessonGroup::all());
     }
 
 

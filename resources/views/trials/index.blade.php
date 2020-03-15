@@ -19,6 +19,10 @@
 
   <div class="customerList">
             <h4>Trial Student List</h4>
+            白は「体験待ち」です。
+            <span class="ml-4 continue d-inline-block"></span> 継続
+            <span class="ml-4 cancel d-inline-block"></span> キャンセル済み</small>
+            <span class="ml-4 consider d-inline-block"></span> 受講検討中
               <div class="studentList">
                   <table class="table table table-bordered">
                     <thead class="thead-dark">
@@ -68,7 +72,7 @@
                           <td class="address">{{optional($student->student->address)->name}}<br>{{optional($student->student)->addDetails}}</td>
                           <td class="bus">
 
-                            @foreach($student->bususes as $key=>$value)
+                            @foreach(config('const.bususes') as $key=>$value)
                               {{$key==$student->bus ? $value : ''}}
                             @endforeach
 
@@ -78,7 +82,7 @@
                           <td class="note">{{$student->note}}</td>
                           <td class="status">
                             <select name="status">
-                              @foreach($student->statuses as $key=>$value)
+                              @foreach(config('const.statuses') as $key=>$value)
                                 <option {{$key==$student->status ? 'selected' : ''}}
                                 value="{{$key}}"
                                  >{{$value}}</option>
@@ -124,13 +128,19 @@
           url: "{{route('trials.status')}}",
           data:{id:student_lesson_id,status:status,_token:'{{csrf_token()}}'}
         }).done(function(data){
+          console.log(data);
           if(status>=7 && status<=9){
             $("[data-id="+student_lesson_id+"]").css('background-color','#ddd');
+            window.location.href="{{url('/students')}}"+"/"+data.student_id+"/edit";
           }else if(status==5){
             $("[data-id="+student_lesson_id+"]").css('background-color','red');
           }else{
             $("[data-id="+student_lesson_id+"]").css('background-color','white');
           }
+
+          
+          
+
         });
 
       }else{

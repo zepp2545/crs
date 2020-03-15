@@ -13,6 +13,7 @@
          <h3>{{isset($student) ? 'Edit Trial Student' : 'Register Trial Student'}}</h3>
          @if(!isset($student))
           <div class="form-group mt-4">
+          <label for="name_search">名前検索でStudent ListやTrial Listの生徒情報を自動的に反映させることができます。</label>
           <input type="text" placeholder="Search with a name" class="form-control" id="name_search">
           </div>
         
@@ -78,7 +79,7 @@
              <label for="Note">Note</label>
              <input type="text" name="note" id="note" class="form-control" placeholder="Note for Bus Use" value="{{isset($student) ? $student->note : old('note')}}">
            </div>
-           <button type="submit" class="btn btn-info">Create</button>
+           <button type="submit" class="btn btn-info">{{isset($student)? "Update" : "Create"}}</button>
          </form>
 
          
@@ -128,8 +129,7 @@
 
   $(document).ready(function(){
 
-    var studens;
-
+    var students;
 
     // get student infomation to display list of students
 
@@ -143,8 +143,9 @@
           url:"{{route('trials.get_stu_info')}}",
           data:{name:name,_token:'{{csrf_token()}}'}
         }).done(function(data){
+          students=data;
           for(var i=0;i<data.length;i++){
-            $('#stu_list ul').append("<li data-id='"+i+"'>"+data[i]['student']['jaName']+"&nbsp&nbsp&nbsp<button class='import btn btn-primary btn-sm mb-2'>Import</button></li>");
+            $('#stu_list ul').append("<li data-id='"+i+"'>"+data[i]['student']['jaName']+"&nbsp&nbsp&nbsp<button class='import btn btn-primary btn-sm mb-2' type='button'>Import</button></li>");
           }
           
         })
@@ -156,7 +157,7 @@
       let number=$(this).parent('li').data('id');
 
       if(confirm("Are you sure you want to fill in input fields with this student's information ?")){
-        $('.card-body').prepend("<div class='alert alert-danger'>Lessonを選んでください。</div><div class='alert alert-danger'>バス利用についても確認してください。</div>");
+        $('.card-body').prepend("<div class='alert alert-danger'>体験するLessonを選んでください。</div><div class='alert alert-danger'>Bus Useについても確認してください。</div>");
         $('#grade').children("option[value='"+students[number]['student']['grade']+"']").attr('selected','selected');
 
         $('#jaName').val(students[number]['student']['jaName']);

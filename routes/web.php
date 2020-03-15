@@ -50,6 +50,7 @@ Route::post('bulkemail/send','BulkEmailController@send')->name('bulkemail.send')
 
 //Settings
 //lessons
+Route::resource('settings/lessonGroup','LessonGroupController',['except'=>['index','create','show','edit']]);
 Route::delete('settings/lessons/delete/{id}','SettingsController@lessons_delete')->name('settings.lessons.delete');
 Route::get('settings/lessons','SettingsController@lesson')->name('settings.lessons');
 Route::put('settings/lessons/update/{id}','SettingsController@lessons_update')->name('settings.lessons.update');

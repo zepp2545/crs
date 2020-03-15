@@ -38,7 +38,6 @@
                           <th class="pickUp">Pick up</th>
                           <th class="send">Send</th>
                           <th class="note">Note</th>
-                          <th class="status">Status</th>
                           <th class='restore'>Restore</th>
                       </tr>
                     </thead>
@@ -69,14 +68,6 @@
                           <td class="pickUp">{{optional($student->pickup)->name}}<br>{{$student->pickup_details}}</td>
                           <td class="send">{{optional($student->send)->name}}<br>{{$student->send_details}}</td>
                           <td class="note">{{$student->note}}</td>
-                          <td class="status">
-                            <select name="status">
-                              @foreach($student->statuses as $key=>$value)
-                                <option {{$key==$student->status ? 'selected' : ''}}
-                                value="{{$key}}"
-                                 >{{$value}}</option>
-                              @endforeach
-                            </select>
                           </td>
                           <td class="restore">
                             <form action="{{route('students.restore',['id'=>$student->id])}}" method="post">

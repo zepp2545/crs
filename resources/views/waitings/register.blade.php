@@ -13,6 +13,7 @@
          <h3>{{isset($student) ? 'Edit Waiting Student' : 'Register Waiting Student'}}</h3>
          @if(!isset($student))
          <div class="form-group mt-4">
+          <label for="name_search">名前検索でStudent ListやTrial Listの生徒情報を自動的に反映させることができます。</label>
           <input type="text" placeholder="Search with a name" class="form-control" id="name_search">
           </div>
         

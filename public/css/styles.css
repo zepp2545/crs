@@ -5,10 +5,13 @@ html{
 body{
   height:100%;
 }
-
 /* .mainRow,.sidebar,.mainContent{
   height:100%;
 } */
+
+.table-bordered td, .table-bordered th {
+  border: 1px solid #ced2d6 !important;
+}
 
 a{
   text-decoration: none;
@@ -142,8 +145,29 @@ span.trial{
   height:30px;
 }
 
+/* waiting list  */
+span.continue{
+  background-color: #ddd;
+  width:60px;
+  height:30px;
+}
+
+span.cancel{
+  background-color:red;
+  width:60px;
+  height:30px;
+}
+
+span.consider{
+  background-color: yellow;
+  width:60px;
+  height:30px;
+}
+
 /* bulk email */
 
 .emailContainer input[type="text"],.emailContainer input[type="file"],.emailContainer select{
   max-width:400px !important;
 }
+
+

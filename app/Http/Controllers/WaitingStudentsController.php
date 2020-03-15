@@ -144,14 +144,13 @@ class WaitingStudentsController extends Controller
     return redirect(route('waitings.index'))->with('success','The student updated successfully');
   }
   
-  // search student info in waiting registration ajax
-  public function get_stu_info(Request $request){
-    $students=StudentLesson::whereHas('student',function($query)use($request){
-      $query->where('jaName','Like',"%{$request->name}%")->orWhere('kanaName','Like',"%{$request->name}%")->orWhere('enName','Like',"%{$request->name}%");
-    })->with('student')->get();
-
-    return response()->json($students);
-  }
+    // search student info in trial registration ajax
+    public function get_stu_info(Request $request){
+      $students=StudentLesson::groupBy('student_id')->whereHas('student',function($query)use($request){
+        $query->where('jaName','Like',"%{$request->name}%")->orWhere('kanaName','Like',"%{$request->name}%")->orWhere('enName','Like',"%{$request->name}%");
+      })->with('student')->get();
+      return response()->json($students);
+    }
 
 
 

@@ -112,14 +112,14 @@ class TrialStudentsController extends Controller
     public function change_status_ajax(Request $request){
       $student_lesson_id=$request->input('id');
       $status=$request->input('status');
-
       $student=StudentLesson::find($student_lesson_id);
 
       $student->status=$status;
 
       $student->save();
-
+      
       return response()->json($student);
+
     }
 
 
@@ -217,10 +217,9 @@ class TrialStudentsController extends Controller
 
     // search student info in trial registration ajax
     public function get_stu_info(Request $request){
-      $students=StudentLesson::whereHas('student',function($query)use($request){
+      $students=StudentLesson::groupBy('student_id')->whereHas('student',function($query)use($request){
         $query->where('jaName','Like',"%{$request->name}%")->orWhere('kanaName','Like',"%{$request->name}%")->orWhere('enName','Like',"%{$request->name}%");
       })->with('student')->get();
-
       return response()->json($students);
     }
 

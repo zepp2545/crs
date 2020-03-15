@@ -8,13 +8,17 @@
      
      @include('partials.alerts.error')
      @include('partials.alerts.success')
-     <ul>
-       <li>Basic Infoは生徒情報の変更ができます。</li>
-       <li>生徒の受講講座の変更はLesson Infoから行ってください。</li>
-     </ul>
+ 
      <div class="card  mt-4 mx-auto">
        <div class="card-header">
          <h3>{{isset($student) ? 'Basic Info' : 'Register Student'}}</h3>
+         <ul>
+          <li>Basic Infoは生徒情報の変更ができます。</li>
+          <li>生徒の受講講座の変更はLesson Infoから行ってください。</li>  
+         </ul>
+         @if(url()->previous('/trials')===url('/trials'))
+          <div div class="alert alert-danger">体験から継続した場合は「受講講座」と「Lesson Start Day」を必ず設定してください。これがLesson Listに反映されます。</div>
+         @endif  
        </div>
        <div class="card-body card-default">
          <form action="{{isset($student) ? route('students.update',$student->id) : route('students.store')}}" method="post">
