@@ -27,7 +27,8 @@ class SettingsController extends Controller
                'name'=>'required|unique:lessons,name,'.$id.'|max:255',
                'kana'=>'required|unique:lessons,kana,'.$id.'|max:255',
                'time'=>'required',
-               'day'=>'required'
+               'day'=>'required',
+               'capacity'=>'required|integer'
             ]);
 
 
@@ -35,7 +36,8 @@ class SettingsController extends Controller
             'name'=>$request->name,
             'kana'=>$request->kana,
             'time'=>$request->time,
-            'day'=>$request->day
+            'day'=>$request->day,
+            'capacity'=>$request->capacity
             ]);
             
         });
