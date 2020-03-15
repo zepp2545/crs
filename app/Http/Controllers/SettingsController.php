@@ -14,7 +14,7 @@ class SettingsController extends Controller
     //lesson setting
 
     public function lesson(){
-        return view('settings/lessons')->with('lessons',Lesson::all())->with('lessonGroups',LessonGroup::all());
+        return view('settings/lessons')->with('lessons',Lesson::orderBy('kana','asc')->get())->with('lessonGroups',LessonGroup::orderBy('kana','asc')->get());
     }
 
 
