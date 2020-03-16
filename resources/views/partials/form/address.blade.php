@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="address">Address<span class="badge badge-danger ml-2">Required</span>@include('partials.add_place')</label>
+  <label for="address">Address @if(!Request::is('waitings/*'))<span class="badge badge-danger ml-2">Required</span>@endif @include('partials.add_place')</label>
   <select class="form-control" name="address" id="address">
     <option selected disabled>Please select</option>
     @foreach($places as $place)

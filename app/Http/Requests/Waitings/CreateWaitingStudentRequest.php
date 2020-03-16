@@ -32,7 +32,7 @@ class CreateWaitingStudentRequest extends FormRequest
         'tel2'=>'nullable|regex:/(0)[0-9]{8,9}/',
         'email1'=>'required|email',
         'email2'=>'nullable|email',
-        'address'=>'required|numeric',
+        'address'=>'nullable|numeric',
         'addDetails'=>'nullable|string|max:255',
         'lesson'=>'required|numeric',
         'busUse'=>'nullable|numeric',

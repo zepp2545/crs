@@ -7,6 +7,7 @@
 @section('content')
 
      @include('partials.alerts.error')
+     @include('partials.alerts.success')
 
      <div class="card  mt-4 mx-auto">
        <div class="card-header">

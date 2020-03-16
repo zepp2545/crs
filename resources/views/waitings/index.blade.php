@@ -110,7 +110,7 @@
              cloned_row.find('.jaName').text(data[i]['student']['jaName']);
              cloned_row.find('.kanaName').text(data[i]['student']['kanaName']);
              cloned_row.find('.enName').text(data[i]['student']['enName']);
-             cloned_row.find('.lesson').text(data[i]['lesson']['name']);
+             cloned_row.find('.lesson').text(data[i]['lesson_group']['name']);
              cloned_row.find('.tel1').text(data[i]['student']['tel1']);
              cloned_row.find('.tel2').text(data[i]['student']['tel2']);
              cloned_row.find('.email1').text(data[i]['student']['email1']);

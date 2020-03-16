@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Lesson;
+use App\LessonGroup;
 use App\Place;
 use App\StudentLesson;
 use App\Student;
@@ -14,13 +15,13 @@ class WaitingStudentsController extends Controller
 {
   public function index()
   {
-    return view('waitings.index')->with('lessons',Lesson::all());
+    return view('waitings.index')->with('lessons',LessonGroup::orderBy('kana','asc')->get());
   }
 
 
   public function create()
   {
-      return view('waitings.register')->with('lessons',Lesson::all())->with('places',Place::all());
+      return view('waitings.register')->with('lessons',LessonGroup::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
   }
 
 
@@ -69,7 +70,7 @@ class WaitingStudentsController extends Controller
 
      $student_lesson=StudentLesson::create([
        'student_id'=>$last_inserted_id,
-       'lesson_id'=>$request->lesson,
+       'lesson_group_id'=>$request->lesson,
        'status'=>1,
        'bus'=>$request->busUse,
        'pickup_id'=>$request->pickup,
@@ -85,9 +86,9 @@ class WaitingStudentsController extends Controller
 
   public function get_student_ajax(Request $request){
     $lesson_id=$request->input('id');
-    $students=StudentLesson::where('lesson_id',$lesson_id)->whereBetween('status',[1,3])->with(['student'=> function($query){
+    $students=StudentLesson::where('lesson_group_id',$lesson_id)->whereBetween('status',[1,3])->with(['student'=> function($query){
       $query->with('address');
-    }])->with('lesson')->with('send')->with('pickup')->get();
+    }])->with('lesson_group')->with('send')->with('pickup')->get();
 
     return response()->json($students);
   }
@@ -108,7 +109,7 @@ class WaitingStudentsController extends Controller
       $student_lesson=StudentLesson::whereBetween('status',[1,2])->find($id);
 
       $student_lesson->update([
-        'lesson_id'=>$request->lesson,
+        'lesson_group_id'=>$request->lesson,
         'trial_date'=>$request->trialDate,
         'bus'=>$request->busUse,
         'pickup_id'=>$request->pickup,
