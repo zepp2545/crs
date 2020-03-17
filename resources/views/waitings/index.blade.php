@@ -106,6 +106,7 @@
             
              cloned_row.removeClass('d-none');
              cloned_row.addClass('cloned_row');
+             cloned_row.attr('data-id',data[i]['id']);
              cloned_row.find('.grade').text(data[i]['student']['grade']);
              cloned_row.find('.jaName').text(data[i]['student']['jaName']);
              cloned_row.find('.kanaName').text(data[i]['student']['kanaName']);
@@ -141,6 +142,46 @@
 
 
       });
+      
+      
+      //change status
+      var pre_status;
+      $(document).on('click','.status select',function(){
+        pre_status=$(this).val();
+      });
+      
+      $(document).on('change','.status select',function(){
+        if(confirm('Are you sure you want to change the status of this student?')){
+          var student_lesson_id=$(this).parents('tr').data('id');
+          var status=$(this).children('option:selected').val();
+
+          console.log(student_lesson_id);
+
+          $.ajax({
+            type:'POST',
+            url: "{{route('waiting.status')}}",
+            data:{id:student_lesson_id,status:status,_token:'{{csrf_token()}}'}
+          }).done(function(data){
+            console.log(data);
+            if(status==4){
+              $("[data-id="+student_lesson_id+"]").css('background-color','#ddd');
+              window.location.href="{{url('/trials')}}"+"/"+data.id+"/edit";
+            }else if(status==2){
+              $("[data-id="+student_lesson_id+"]").css('background-color','red');
+            }else{
+              $("[data-id="+student_lesson_id+"]").css('background-color','white');
+            }
+
+          });
+
+        }else{
+          $(this).val(pre_status);
+          return;
+        }
+
+
+      });
+
 
 
 

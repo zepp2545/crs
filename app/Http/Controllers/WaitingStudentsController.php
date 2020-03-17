@@ -86,7 +86,7 @@ class WaitingStudentsController extends Controller
 
   public function get_student_ajax(Request $request){
     $lesson_id=$request->input('id');
-    $students=StudentLesson::where('lesson_group_id',$lesson_id)->whereBetween('status',[1,3])->with(['student'=> function($query){
+    $students=StudentLesson::where('lesson_group_id',$lesson_id)->whereBetween('status',[1,4])->with(['student'=> function($query){
       $query->with('address');
     }])->with('lesson_group')->with('send')->with('pickup')->get();
 
@@ -97,7 +97,7 @@ class WaitingStudentsController extends Controller
   {
     $student=StudentLesson::whereBetween('status',[1,2])->find($id);
 
-    return view('waitings.register')->with('student',$student)->with('lessons',Lesson::all())->with('places',Place::all());
+    return view('waitings.register')->with('student',$student)->with('lessons',LessonGroup::orderBy('kana','asc')->get())->with('places',Place::all());
   }
 
   public function update(CreateWaitingStudentRequest $request,$id)
@@ -151,6 +151,20 @@ class WaitingStudentsController extends Controller
         $query->where('jaName','Like',"%{$request->name}%")->orWhere('kanaName','Like',"%{$request->name}%")->orWhere('enName','Like',"%{$request->name}%");
       })->with('student')->get();
       return response()->json($students);
+    }
+
+
+    public function change_status_ajax(Request $request){
+      $student_lesson_id=$request->input('id');
+      $status=$request->input('status');
+      $student=StudentLesson::find($student_lesson_id);
+
+      $student->status=$status;
+
+      $student->save();
+      
+      return response()->json($student);
+
     }
 
 

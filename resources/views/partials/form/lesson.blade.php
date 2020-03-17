@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="lesson">Lesson<span class="badge badge-danger ml-2">Required</span></label>
+  <label for="lesson">Lesson @if(Request::is('waitings/'))<span class="badge badge-danger ml-2">Required</span>@endif</label>
   <select class="form-control" name="lesson" id="lesson">
     <option selected disabled>Please select</option>
     @foreach($lessons as $lesson)

@@ -23,6 +23,7 @@ Route::post('trials/get_stu_info','TrialStudentsController@get_stu_info')->name(
 
 
 // waiting list
+Route::post('waiting/status','WaitingStudentsController@change_status_ajax')->name('waiting.status');
 Route::post('waitings/get_stu_info','WaitingStudentsController@get_stu_info')->name('waitings.get_stu_info');
 Route::get('waitings/create','WaitingStudentsController@create')->name('waitings.create');
 Route::post('waitings/store','WaitingStudentsController@store')->name('waitings.store');

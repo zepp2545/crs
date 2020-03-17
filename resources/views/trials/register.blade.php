@@ -22,6 +22,9 @@
             </ul>
           </div>
          @endif
+         @if(url()->previous('/waitings')===url('/waitings'))
+          <div div class="alert alert-danger">ウェイティングのStatusから移行してきた場合は「Lesson」を必ず設定してください。</div>
+         @endif  
          
        </div>
        <div class="card-body card-default">
@@ -32,6 +35,7 @@
            @if(isset($student))
              @method('PUT')
            @endif
+
           
            @include('partials.form.grade')
            <div class="form-group">
