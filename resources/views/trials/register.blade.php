@@ -36,6 +36,8 @@
              @method('PUT')
            @endif
 
+           <input type="hidden" value="" name="student_id" id="student_id">
+
           
            @include('partials.form.grade')
            <div class="form-group">
@@ -161,8 +163,10 @@
       let number=$(this).parent('li').data('id');
 
       if(confirm("Are you sure you want to fill in input fields with this student's information ?")){
+    
         $('.card-body').prepend("<div class='alert alert-danger'>体験するLessonを選んでください。</div><div class='alert alert-danger'>Bus Useについても確認してください。</div>");
         $('#grade').children("option[value='"+students[number]['student']['grade']+"']").attr('selected','selected');
+        $('#student_id').val(students[number]['student_id']);
 
         $('#jaName').val(students[number]['student']['jaName']);
         $('#kanaName').val(students[number]['student']['kanaName']);

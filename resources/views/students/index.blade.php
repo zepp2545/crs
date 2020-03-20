@@ -18,6 +18,7 @@
     </form>
   </div>
 
+
   <div class="customerList">
               <div class="studentList">
                   <table class="table table table-bordered">
@@ -43,6 +44,7 @@
                     <tbody>
                        <?php $i=1; ?>
                       @foreach($students as $student)
+                      
                         <tr data-id="{{$student->id}}">
                           <td class="number">{{$i}}</td>
                           <td class="grade">{{$student->grade}}</td>

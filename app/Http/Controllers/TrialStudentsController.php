@@ -64,22 +64,27 @@ class TrialStudentsController extends Controller
     }
 
     private function register_student_info($request){
-      $student=Student::create([
-        'grade'=>$request->grade,
-        'jaName'=>$request->jaName,
-        'kanaName'=>$request->kanaName,
-        'enName'=>$request->enName,
-        'tel1'=>$request->tel1,
-        'tel2'=>$request->tel2,
-        'email1'=>$request->email1,
-        'email2'=>$request->email2,
-        'address_id'=>$request->address,
-        'addDetails'=>$request->addDetails,
-        'note'=>$request->note,
-        'province'=>$request->province
-      ]);
-
-       return $student->id;
+      if(Student::where('id',(int)$request->student_id)->exists()){
+        return $request->student_id;
+      }else{
+        $student=Student::create([
+          'grade'=>$request->grade,
+          'jaName'=>$request->jaName,
+          'kanaName'=>$request->kanaName,
+          'enName'=>$request->enName,
+          'tel1'=>$request->tel1,
+          'tel2'=>$request->tel2,
+          'email1'=>$request->email1,
+          'email2'=>$request->email2,
+          'address_id'=>$request->address,
+          'addDetails'=>$request->addDetails,
+          'note'=>$request->note,
+          'province'=>$request->province
+        ]);
+  
+         return $student->id;
+      }
+      
 
     }
 
