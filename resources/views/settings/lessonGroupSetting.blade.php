@@ -61,7 +61,7 @@
             <form action="{{route('lessonGroup.destroy',['id'=>$lesson->id])}}" method="post" class="d-inline-block">
             @csrf 
             @method('delete')
-            <button class="btn btn-danger" type="submit">Delete</button>
+            <button class="btn btn-danger" type="submit" id="lesson_group_delete_btn">Delete</button>
             </form>
             
                 <!-- The Modal -->

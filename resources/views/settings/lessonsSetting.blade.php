@@ -182,32 +182,3 @@
 
     </ul>
 </div>
-
-
-@section('script')
-<script>
-
-   $(document).ready(function(){
-
-
-      $('#lesson_delete_btn').click(function(){
-
-          if(!confirm('Are you sure you want to delete this lesson? If you delete this lesson, this will cause some problems in lists.')){
-              return false;
-          }
-
-      })
-
-
-
-
-   });
-
-
-
-
-</script>
-
-
-
-@endsection
