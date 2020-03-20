@@ -125,7 +125,7 @@ class SettingsController extends Controller
 
         });
 
-        return redirect(route('settings.places'))->with('sucecess','Deleted Successfully');
+        return redirect(route('settings.places'))->with('success','Place deleted Successfully');
 
     }
 

@@ -68,7 +68,7 @@
         <form action="{{route('settings.places.delete',['id'=>$place->id])}}" method="post" class="d-inline-block">
           @csrf 
           @method('delete')
-          <button class="btn btn-danger" type="submit">Delete</button>
+          <button class="btn btn-danger place_delete_button" type="submit">Delete</button>
         </form>
              
               <!-- The Modal for edit place-->
@@ -115,6 +115,32 @@
 </ul>
   
 
+
+@endsection
+
+
+
+@section('script')
+
+<script>
+
+$(document).ready(function(){
+
+//show dialog when deleting place.
+$('.place_delete_button').click(function(){
+
+    if(!confirm('Are you sure you want to delete this place? If you delete this place, this will cause some problems in lists.')){
+        return false;
+    }
+
+});
+
+
+
+
+});
+
+</script>
 
 @endsection
 

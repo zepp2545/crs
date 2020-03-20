@@ -26,7 +26,7 @@
 $(document).ready(function(){
 
 //show dialog when deleting lesson group.
-$('#lesson_group_delete_btn').click(function(){
+$('.lesson_group_delete_btn').click(function(){
 
     if(!confirm('Are you sure you want to delete this lesson group? If you delete this lesson, this will cause some problems in lists.')){
         return false;
@@ -35,7 +35,7 @@ $('#lesson_group_delete_btn').click(function(){
 });
 
 //show dialog when deleting lesson.
-$('#lesson_delete_btn').click(function(){
+$('.lesson_delete_btn').click(function(){
 
     if(!confirm('Are you sure you want to delete this lesson? If you delete this lesson, this will cause some problems in lists.')){
         return false;

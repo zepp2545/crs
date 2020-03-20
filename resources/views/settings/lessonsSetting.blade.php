@@ -97,7 +97,7 @@
             <form action="{{route('settings.lessons.delete',['id'=>$lesson->id])}}" method="post" class="d-inline-block" id="delete_lesson">
             @csrf 
             @method('delete')
-            <button class="btn btn-danger" type="submit" id="lesson_delete_btn">Delete</button>
+            <button class="btn btn-danger lesson_delete_btn" type="submit">Delete</button>
             </form>
             
                 <!-- The Modal -->
