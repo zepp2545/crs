@@ -42,7 +42,7 @@ class SettingsController extends Controller
             
         });
 
-        return redirect(route('settings.lessons'))->with('success','Updated Successfully');
+        return redirect(route('settings.lessons'))->with('success','Leson updated Successfully');
         
     }
 
@@ -56,7 +56,7 @@ class SettingsController extends Controller
 
         });
 
-        return redirect(route('settings.lessons'))->with('sucecess','Deleted Successfully');
+        return redirect(route('settings.lessons'))->with('success','Lesson deleted Successfully');
 
     }
 

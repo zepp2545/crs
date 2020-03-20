@@ -94,10 +94,10 @@
         <div class="buttons">
 
             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$lesson->id}}">Edit</button>
-            <form action="{{route('settings.lessons.delete',['id'=>$lesson->id])}}" method="post" class="d-inline-block">
+            <form action="{{route('settings.lessons.delete',['id'=>$lesson->id])}}" method="post" class="d-inline-block" id="delete_lesson">
             @csrf 
             @method('delete')
-            <button class="btn btn-danger" type="submit">Delete</button>
+            <button class="btn btn-danger" type="submit" id="lesson_delete_btn">Delete</button>
             </form>
             
                 <!-- The Modal -->
@@ -182,3 +182,32 @@
 
     </ul>
 </div>
+
+
+@section('script')
+<script>
+
+   $(document).ready(function(){
+
+
+      $('#lesson_delete_btn').click(function(){
+
+          if(!confirm('Are you sure you want to delete this lesson? If you delete this lesson, this will cause some problems in lists.')){
+              return false;
+          }
+
+      })
+
+
+
+
+   });
+
+
+
+
+</script>
+
+
+
+@endsection
