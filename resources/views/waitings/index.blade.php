@@ -55,7 +55,11 @@
           <td class="status">
             <select name="status">
                @foreach(Config::get('const.statuses') as $key=>$value)
+                @if($key!==1 && $key!==2 && $key!==3 && $key!==4)
+                  @continue
+                @else
                  <option value="{{$key}}">{{$value}}</option>
+                @endif
                @endforeach
             </select>
           </td>
@@ -123,15 +127,23 @@
              cloned_row.find('.send').html(send+'<br>'+send_details);
              cloned_row.find('.note').text(data[i]['note']);
              for(key in statuses){
-               
                if(data[i]['status']===parseInt(key)){
-                cloned_row.find(".status option[value='"+key+"']").attr('selected','selected');
+
+                 if(data[i]['status']==2){
+                  cloned_row.find(".status option[value='"+key+"']").attr('selected','selected');
+                  cloned_row.css('background-color','red');
+                 }else if(data[i]['status']==4){
+                  cloned_row.find(".status option[value='"+key+"']").attr('selected','selected');
+                  cloned_row.css('background-color','#ddd');
+                 }else{
+                  cloned_row.find(".status option[value='"+key+"']").attr('selected','selected');
+                 }
+                 
+                   
                }
              }
              cloned_row.find('.edit a').attr('href',url+'/'+data[i]['id']);
              cloned_row.appendTo('tbody');
-
-
 
            }
 
@@ -162,7 +174,6 @@
             url: "{{route('waiting.status')}}",
             data:{id:student_lesson_id,status:status,_token:'{{csrf_token()}}'}
           }).done(function(data){
-            console.log(data);
             if(status==4){
               $("[data-id="+student_lesson_id+"]").css('background-color','#ddd');
               window.location.href="{{url('/trials')}}"+"/"+data.id+"/edit";

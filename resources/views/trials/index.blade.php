@@ -60,8 +60,8 @@
                           @elseif($student->status==5)
                             cancelled
                           @endif
-                        " data-id="{{$student->id}}">
-                          <td class="trialDate">{{$student['trial_date']}}</td>
+                        " data-id="{{optional($student)->id}}">
+                          <td class="trialDate">{{optional($student)->trial_date}}</td>
                           <td class="grade">{{optional($student->student)->grade}}</td>
                           <td class="jaName">{{optional($student->student)->jaName}}</td>
                           <td class="kanaName">{{optional($student->student)->kanaName}}</td>
@@ -80,9 +80,9 @@
                             @endforeach
 
                           </td>
-                          <td class="pickUp">{{optional($student->pickup)->name}}<br>{{$student->pickup_details}}</td>
-                          <td class="send">{{optional($student->send)->name}}<br>{{$student->send_details}}</td>
-                          <td class="note">{{$student->note}}</td>
+                          <td class="pickUp">{{optional($student->pickup)->name}}<br>{{optional($student)->pickup_details}}</td>
+                          <td class="send">{{optional($student->send)->name}}<br>{{optional($student)->send_details}}</td>
+                          <td class="note">{{optional($student)->note}}</td>
                           <td class="status">
                             <select name="status">
                               @foreach(config('const.statuses') as $key=>$value)
