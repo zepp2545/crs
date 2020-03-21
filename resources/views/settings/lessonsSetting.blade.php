@@ -6,6 +6,7 @@
 
     <ul class="mt-4">
     <li><span class="danger">新しい講座を作成する場合は必ずAdd Lessonから作成してください。（Editから既存の講座を変更してしまうと生徒情報のレッスンも変更されてしまいます。Editは講座名の変更、レッスン日、レッスン時間、定員の変更のみに使用してください。）</span></li>
+    <li class="mt-3">中学部本科は曜日ごとにレッスンを用意してください。(バスの利用が曜日毎に異なる生徒もいるため。)</li>
     </ul>
 
     <div class="row d-flex justify-content-end">

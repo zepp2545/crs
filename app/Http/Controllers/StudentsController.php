@@ -50,7 +50,7 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        return view('students.register')->with('lessons',Lesson::all())->with('places',Place::all());
+        return view('students.register')->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
     }
 
     /**
@@ -83,7 +83,7 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
-      return view('students.register')->with('student',Student::find($id))->with('places',Place::all());
+      return view('students.register')->with('student',Student::find($id))->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
     }
 
     /**
@@ -170,11 +170,13 @@ class StudentsController extends Controller
       try{
 
         $active_lesson->update([
+            'lesson_id'=>$request->lesson,
             'bus'=>$request->busUse,
             'pickup_id'=>$request->pickup,
             'pickup_details'=>$request->pickupDetails,
             'send_id'=>$request->send,
             'send_details'=>$request->sendDetails,
+            'status'=>$request->status,
             'start_date'=>$request->start_date,
             'quit_date'=>$request->quit_date
         ]);

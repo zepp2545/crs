@@ -139,7 +139,12 @@
          <ul class="list-group list-group-flush">
             @foreach($student->active_lessons as $active_lesson)
               <li class="list-group-item">
-                {{optional($active_lesson->lesson)->name}}
+                @if($active_lesson->status===9)
+                 {{optional($active_lesson->lesson)->name}} <span class="text-danger">(休会中)</span>
+                @else
+                 {{optional($active_lesson->lesson)->name}}
+                @endif
+                
                 <div class="float-right">
                   <!-- Button to Open the Modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$active_lesson->id}}">
@@ -163,8 +168,21 @@
                       @csrf
                       <div class="modal-body">
                           <div class="form-group">
-                              <label for="busUse">Bus Use<span class="badge badge-danger ml-2">Required</span></label>
-                              <select class="form-control" name="busUse" id="busUse">
+                             <label for="lesson{{$active_lesson->id}}">Lesson<span class="badge badge-danger ml-2">Required</span></label>
+                             <select name="lesson" id="lesson{{$active_lesson->id}}" class="form-control">
+                                @foreach($lessons as $lesson)
+                                  @if(isset($student))
+                                    <option value="{{$lesson->id}}" {{$lesson->id==$active_lesson->lesson->id ? 'selected' : ''}}>{{$lesson->name}}</option>
+                                  @else
+                                    <option value="{{$lesson->id}}" {{$lesson==old('lesson') ? 'selected' : ''}}>{{$lesson->name}}</option>
+                                  @endif
+                                @endforeach
+                             </select>
+                             
+                          </div>
+                          <div class="form-group">
+                              <label for="busUse{{$active_lesson->id}}">Bus Use<span class="badge badge-danger ml-2">Required</span></label>
+                              <select class="form-control" name="busUse" id="busUse{{$active_lesson->id}}">
                                 <option selected disabled>Please select</option>
                                 @foreach(Config::get('const.bususes') as $key => $value)
                                   @if(isset($student))
@@ -177,8 +195,8 @@
                               </select>
                           </div>
                           <div class="form-group">
-                            <label for="pickup">Pick Up</label>
-                            <select class="form-control" name="pickup" id="pickup">
+                            <label for="pickup{{$active_lesson->id}}">Pick Up</label>
+                            <select class="form-control" name="pickup" id="pickup{{$active_lesson->id}}">
                               <option selected disabled>Please select</option>
                               @foreach($places as $place)
                                 @if(isset($student))
@@ -190,12 +208,12 @@
                             </select>
                           </div>
                           <div class="form-group">
-                            <label for="pickupDetails">Pick Up Details</label>
-                            <input type="text" id="pickupDetails" name="pickupDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $student->pickup_details : old('pickupDetails')}}">
+                            <label for="pickupDetails{{$active_lesson->id}}">Pick Up Details</label>
+                            <input type="text" id="pickupDetails{{$active_lesson->id}}" name="pickupDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $student->pickup_details : old('pickupDetails')}}">
                           </div>
                           <div class="form-group">
-                            <label for="send">Send</label>
-                            <select class="form-control" name="send" id="send">
+                            <label for="send{{$active_lesson->id}}">Send</label>
+                            <select class="form-control" name="send" id="send{{$active_lesson->id}}">
                               <option selected disabled>Please select</option>
                               @foreach($places as $place)
                                 @if(isset($student))
@@ -207,17 +225,31 @@
                             </select>
                           </div>
                           <div class="form-group">
-                            <label for="sendDetails">Send Details</label>
-                            <input type="text" id="sendDetails" name="sendDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $active_lesson->send_details : old('sendDetails')}}">
+                            <label for="sendDetails{{$active_lesson->id}}">Send Details</label>
+                            <input type="text" id="sendDetails{{$active_lesson->id}}" name="sendDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $active_lesson->send_details : old('sendDetails')}}">
                           </div>
                           <div class="form-group">
-                            <label for="start_date">Lesson start date</label>
-                            <input type="date" id="start_date" name="start_date" class="form-control" value="{{isset($student) ? $active_lesson->start_date : old('start_date')}}">
+                            <label for="status{{$active_lesson->id}}">Status<span class="badge badge-danger ml-2">Required</span></label>
+                            <select name="status" id="status{{$active_lesson->id}}" class="form-control">
+                              @foreach(config('const.statuses') as $key=>$value)
+                                @if($key===$active_lesson->status)
+                                  <option value="{{$key}}" selected>{{$value}}</option>
+                                @else
+                                <option value="{{$key}}">{{$value}}</option>
+                                @endif
+                              @endforeach
+                               
+                            </select>
+                            
+                          </div>
+                          <div class="form-group">
+                            <label for="start_date{{$active_lesson->id}}">Lesson start date</label>
+                            <input type="date" id="start_date{{$active_lesson->id}}" name="start_date" class="form-control" value="{{isset($student) ? $active_lesson->start_date : old('start_date')}}">
                           </div>
 
                           <div class="form-group">
-                            <label for="quit_date">Lesson quit date</label>
-                            <input type="date" id="quit_date" name="quit_date" class="form-control" value="{{isset($student) ? $active_lesson->quit_date : old('quit_date')}}">
+                            <label for="quit_date{{$active_lesson->id}}">Lesson quit date</label>
+                            <input type="date" id="quit_date{{$active_lesson->id}}" name="quit_date" class="form-control" value="{{isset($student) ? $active_lesson->quit_date : old('quit_date')}}">
                           </div>
                       
                       </div>

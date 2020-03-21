@@ -24,11 +24,13 @@ class UpdateStudentLessonRequest extends FormRequest
     public function rules()
     {
         return [
+          'lesson'=>'required',
           'busUse'=>'required|numeric',
           'pickup'=>'nullable|numeric',
           'pickupDetails'=>'nullable|string|max:255',
           'send'=>'nullable|numeric',
           'sendDetails'=>'nullable|string|max:255',
+          'status'=>'required',
           'start_date'=>'nullable|date',
           'quit_date'=>'nullable|date'
         ];
