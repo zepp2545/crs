@@ -163,8 +163,8 @@
       let number=$(this).parent('li').data('id');
 
       if(confirm("Are you sure you want to fill in input fields with this student's information ?")){
-    
-        $('.card-body').prepend("<div class='alert alert-danger'>体験するLessonを選んでください。</div><div class='alert alert-danger'>Bus Useについても確認してください。</div>");
+        $('.generated_alert').remove();
+        $('.card-body').prepend("<div class='generated_alert alert alert-danger'>体験するLessonを選んでください。</div><div class='generated_alert alert alert-danger'>Bus Useについても確認してください。</div>");
         $('#grade').children("option[value='"+students[number]['student']['grade']+"']").attr('selected','selected');
         $('#student_id').val(students[number]['student_id']);
 

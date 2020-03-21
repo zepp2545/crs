@@ -139,7 +139,7 @@
          <ul class="list-group list-group-flush">
             @foreach($student->active_lessons as $active_lesson)
               <li class="list-group-item">
-                {{$active_lesson->lesson->name}}
+                {{optional($active_lesson->lesson)->name}}
                 <div class="float-right">
                   <!-- Button to Open the Modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$active_lesson->id}}">
@@ -153,7 +153,7 @@
 
                       <!-- Modal Header -->
                       <div class="modal-header">
-                        <h4 class="modal-title">{{$active_lesson->lesson->name}}</h4>
+                        <h4 class="modal-title">{{optional($active_lesson->lesson)->name}}</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
 
