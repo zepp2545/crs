@@ -83,9 +83,13 @@
                           <td class="status">
                             <select name="status">
                               @foreach(config('const.statuses') as $key=>$value)
+                               @if($key===4 || $key===5 || $key===6 || $key===7)
                                 <option {{$key==$student->status ? 'selected' : ''}}
                                 value="{{$key}}"
                                  >{{$value}}</option>
+                               @else
+                                @continue
+                               @endif
                               @endforeach
                             </select>
                           </td>

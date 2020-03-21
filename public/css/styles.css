@@ -101,6 +101,10 @@ th,td{
   width:100%;
 }
 
+.status{
+  width:250px;
+}
+
 .edit{
   width:100px;
 }
