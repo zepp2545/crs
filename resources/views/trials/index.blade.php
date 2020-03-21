@@ -59,6 +59,8 @@
                             continuation
                           @elseif($student->status==5)
                             cancelled
+                          @elseif($student->status==6)
+                            consider
                           @endif
                         " data-id="{{optional($student)->id}}">
                           <td class="trialDate">{{optional($student)->trial_date}}</td>
@@ -87,9 +89,7 @@
                             <select name="status">
                               @foreach(config('const.statuses') as $key=>$value)
                                @if($key===4 || $key===5 || $key===6 || $key===7 || $key===8)
-                                <option {{$key==$student->status ? 'selected' : ''}}
-                                value="{{$key}}"
-                                 >{{$value}}</option>
+                                <option {{$key==$student->status ? 'selected' : ''}} value="{{$key}}">{{$value}}</option>
                                @else
                                 @continue
                                @endif
@@ -135,17 +135,17 @@
           url: "{{route('trials.status')}}",
           data:{id:student_lesson_id,status:status,_token:'{{csrf_token()}}'}
         }).done(function(data){
-          console.log(data);
           if(status>=7 && status<=9){
             $("[data-id="+student_lesson_id+"]").css('background-color','#ddd');
             window.location.href="{{url('/students')}}"+"/"+data.student_id+"/edit";
           }else if(status==5){
             $("[data-id="+student_lesson_id+"]").css('background-color','red');
+          }else if(status==6){
+            $("[data-id="+student_lesson_id+"]").css('background-color','yellow');
           }else{
             $("[data-id="+student_lesson_id+"]").css('background-color','white');
           }
 
-          
           
 
         });
