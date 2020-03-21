@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<h2>Edit {{$student->jaName}}'s Information</h2>
      
      @include('partials.alerts.error')
      @include('partials.alerts.success')

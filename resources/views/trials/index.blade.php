@@ -3,6 +3,9 @@
 @section('content')
   @include('partials.alerts.success')
   <h2>Trial Student List</h2>
+  <ul>
+   <li>「Status」を「受講中」に更新することでStudent Listに反映されるため、常にアップデートしてください。</li>
+  </ul>
   <div class="searchContent my-4">
     <form action="{{route('trials.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
         @csrf
@@ -21,7 +24,7 @@
             <h4>Trial Student List</h4>
             白は「体験待ち」です。
             <span class="ml-4 continue d-inline-block"></span> 継続
-            <span class="ml-4 cancel d-inline-block"></span> キャンセル済み</small>
+            <span class="ml-4 cancel d-inline-block"></span> 継続しない</small>
             <span class="ml-4 consider d-inline-block"></span> 受講検討中
               <div class="studentList">
                   <table class="table table table-bordered">
@@ -83,7 +86,7 @@
                           <td class="status">
                             <select name="status">
                               @foreach(config('const.statuses') as $key=>$value)
-                               @if($key===4 || $key===5 || $key===6 || $key===7)
+                               @if($key===4 || $key===5 || $key===6 || $key===7 || $key===8)
                                 <option {{$key==$student->status ? 'selected' : ''}}
                                 value="{{$key}}"
                                  >{{$value}}</option>

@@ -135,6 +135,10 @@ tbody .edit{
   font-size: 13px;
 }
 
+.suspended{
+  background-color: #ddd;
+}
+
 tr.trial{
   background-color: yellow;
 }
@@ -145,6 +149,12 @@ span.important{
 
 span.trial{
   background-color: yellow;
+  width:60px;
+  height:30px;
+}
+
+span.suspended{
+  background-color:#ddd;
   width:60px;
   height:30px;
 }
