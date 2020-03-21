@@ -232,11 +232,17 @@
                             <label for="status{{$active_lesson->id}}">Status<span class="badge badge-danger ml-2">Required</span></label>
                             <select name="status" id="status{{$active_lesson->id}}" class="form-control">
                               @foreach(config('const.statuses') as $key=>$value)
-                                @if($key===$active_lesson->status)
-                                  <option value="{{$key}}" selected>{{$value}}</option>
+                                @if($key==7 || $key===8 || $key===9)
+                                  @if($key===$active_lesson->status)
+                                    <option value="{{$key}}" selected>{{$value}}</option>
+                                  @else
+                                    <option value="{{$key}}">{{$value}}</option>
+                                  @endif
+
                                 @else
-                                <option value="{{$key}}">{{$value}}</option>
+                                  @continue
                                 @endif
+                                
                               @endforeach
                                
                             </select>
