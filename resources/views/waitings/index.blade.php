@@ -121,7 +121,9 @@
              cloned_row.find('.email1').text(data[i]['student']['email1']);
              cloned_row.find('.email2').text(data[i]['student']['email2']);
              cloned_row.find('.province').text(data[i]['student']['province']);
-             cloned_row.find('.address').html(data[i]['student']['address']['name']+'<br>'+addDetails);
+             if(data[i]['student']['address']){
+              cloned_row.find('.address').html(data[i]['student']['address']['name']+'<br>'+addDetails);
+             }
              cloned_row.find('.bus').text(data[i]['bus'] in bususes ? bususes[data[i]['bus']] : '');
              cloned_row.find('.pickUp').html(pickup+'<br>'+pickup_details);
              cloned_row.find('.send').html(send+'<br>'+send_details);

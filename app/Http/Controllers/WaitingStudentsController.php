@@ -99,7 +99,7 @@ class WaitingStudentsController extends Controller
 
   public function edit($id)
   {
-    $student=StudentLesson::whereBetween('status',[1,2])->find($id);
+    $student=StudentLesson::whereBetween('status',[1,4])->find($id);
 
     return view('waitings.register')->with('student',$student)->with('lessons',LessonGroup::orderBy('kana','asc')->get())->with('places',Place::all());
   }
