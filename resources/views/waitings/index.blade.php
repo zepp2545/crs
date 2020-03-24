@@ -9,6 +9,13 @@
   </div>
 
   <div class="studentList">
+         <div class="status_description">
+         白は「ウェイティング中」です。
+            <span class="ml-4 continue d-inline-block"></span>体験待ち
+            <span class="ml-4 cancel d-inline-block"></span>キャンセル済み</small>
+            <span class="ml-4 consider d-inline-block"></span> 体験検討中（連絡待ち）
+         </div>
+            
     <table class="table table table-bordered">
       <thead class="thead-dark">
         <tr>
