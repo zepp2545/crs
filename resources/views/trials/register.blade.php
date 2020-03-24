@@ -103,6 +103,7 @@
                 <!-- Modal body -->
                   <div class="modal-body">
                       <div class='alert alert-success' style="display:none">Place added successfully.</div>
+                      <div class='alert alert-danger' style="display:none"></div>
                       <div class="form-group">
                       <label for="name">Name</label>
                       <input class="form-control" type="text" name="name" id="place_name" placeholder="Please type a name of the condo or mubaan">
@@ -201,7 +202,15 @@
       $.ajax({
           type:'POST',
           url:"{{route('settings/places/add_place_ajax')}}",
-          data:{name:place_name,_token:"{{csrf_token()}}"}
+          data:{name:place_name,_token:"{{csrf_token()}}"},
+          error:function(data){
+            var ajax_errors=JSON.parse(data.responseText);
+            $('.modal-body .alert-danger').text(ajax_errors.errors.name);
+            $('.modal-body .alert-danger').show();
+            setTimeout(function(){
+              $('.alert-danger').slideUp();
+            }, 3000);
+          }
         }).done(function(data){
           console.log(data);
           $('#place_name').val('');

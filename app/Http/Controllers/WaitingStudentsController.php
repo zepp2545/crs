@@ -43,24 +43,28 @@ class WaitingStudentsController extends Controller
         return $e->getMessage();
       }
 
-      return redirect(route('waitings.create'))->with('success','New student registered successfully');
+      return redirect(route('waitings.index'))->with('success','New student registered successfully');
   }
 
   private function register_student_info($request){
-    $student=Student::create([
-      'grade'=>$request->grade,
-      'jaName'=>$request->jaName,
-      'kanaName'=>$request->kanaName,
-      'enName'=>$request->enName,
-      'tel1'=>$request->tel1,
-      'tel2'=>$request->tel2,
-      'email1'=>$request->email1,
-      'email2'=>$request->email2,
-      'address_id'=>$request->address,
-      'addDetails'=>$request->addDetails,
-      'note'=>$request->note,
-      'province'=>$request->province
-    ]);
+    if(Student::where('id',(int)$request->student_id)->exists()){
+      return $request->student_id;
+    }else{
+      $student=Student::create([
+        'grade'=>$request->grade,
+        'jaName'=>$request->jaName,
+        'kanaName'=>$request->kanaName,
+        'enName'=>$request->enName,
+        'tel1'=>$request->tel1,
+        'tel2'=>$request->tel2,
+        'email1'=>$request->email1,
+        'email2'=>$request->email2,
+        'address_id'=>$request->address,
+        'addDetails'=>$request->addDetails,
+        'note'=>$request->note,
+        'province'=>$request->province
+      ]);
+    }
 
      return $student->id;
 
@@ -88,7 +92,7 @@ class WaitingStudentsController extends Controller
     $lesson_id=$request->input('id');
     $students=StudentLesson::where('lesson_group_id',$lesson_id)->whereBetween('status',[1,4])->with(['student'=> function($query){
       $query->with('address');
-    }])->with('lesson_group')->with('send')->with('pickup')->get();
+    }])->orderBy('created_at','asc')->with('lesson_group')->with('send')->with('pickup')->get();
 
     return response()->json($students);
   }

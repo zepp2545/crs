@@ -31,7 +31,7 @@
             <th class='delete'>Edit</th>
         </tr>
       </thead>
-
+      
       <tbody>
         <tr class="table_row_model d-none">
           <td class="grade"></td>
@@ -45,10 +45,7 @@
           <td class="email2 email"></td>
           <td class="province"></td>
           <td class="address"></td>
-          <td class="bus">
-
-
-          </td>
+          <td class="bus"></td>
           <td class="pickUp"></td>
           <td class="send"></td>
           <td class="note"></td>
@@ -65,7 +62,6 @@
           </td>
           <td class="edit"><a class="btn btn-primary text-white" href="">Edit</a></td>
         </tr>
-
       </tbody>
 
 
@@ -86,6 +82,7 @@
       var url="{{route('waitings.edit',['id'=>''])}}";
       var statuses={!!json_encode(Config::get('const.statuses'))!!}
       var bususes={!! json_encode(Config::get('const.bususes'))!!}
+      var cloned_row;
       
       $('.table').hide();
 
@@ -98,17 +95,17 @@
           data:{id:lesson_id,_token:'{{csrf_token()}}'}
         }).done(function(data){
             $('.cloned_row').remove();
-
-
-           for(let i=0;i<data.length;i++){
-             var cloned_row=$('.table_row_model').clone();
+            
+          for(let i=0;i<data.length;i++){
+             cloned_row=$('.table_row_model').clone();
              var addDetails=data[i]['student']['addDetails']?data[i]['student']['addDetails']:'';  // if addDetails is null, display empty string to prevent it from displaying null
-             var pickup_details=data[i]['pickup_dtails']?data[i]['pickup_dtails']:'';
-             var send_details=data[i]['send_dtails']?data[i]['send_dtails']:'';
+             var pickup_details=data[i]['pickup_details']?data[i]['pickup_details']:'';
+             var send_details=data[i]['send_details']?data[i]['send_details']:'';
              var pickup=data[i]['pickup']?data[i]['pickup']['name']:'';
              var send=data[i]['send']?data[i]['send']['name']:'';
-            
+             
              cloned_row.removeClass('d-none');
+             cloned_row.removeClass('table_row_model');
              cloned_row.addClass('cloned_row');
              cloned_row.attr('data-id',data[i]['id']);
              cloned_row.find('.grade').text(data[i]['student']['grade']);
@@ -132,6 +129,9 @@
                  if(data[i]['status']==2){
                   cloned_row.find(".status option[value='"+key+"']").attr('selected','selected');
                   cloned_row.css('background-color','red');
+                 }else if(data[i]['status']==3){
+                  cloned_row.find(".status option[value='"+key+"']").attr('selected','selected');
+                  cloned_row.css('background-color','yellow');
                  }else if(data[i]['status']==4){
                   cloned_row.find(".status option[value='"+key+"']").attr('selected','selected');
                   cloned_row.css('background-color','#ddd');
@@ -179,6 +179,8 @@
               window.location.href="{{url('/trials')}}"+"/"+data.id+"/edit";
             }else if(status==2){
               $("[data-id="+student_lesson_id+"]").css('background-color','red');
+            }else if(status==3){
+              $("[data-id="+student_lesson_id+"]").css('background-color','yellow');
             }else{
               $("[data-id="+student_lesson_id+"]").css('background-color','white');
             }

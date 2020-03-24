@@ -7,7 +7,6 @@
 @section('content')
 
      @include('partials.alerts.error')
-     @include('partials.alerts.success')
 
      <div class="card  mt-4 mx-auto">
        <div class="card-header">
@@ -30,6 +29,7 @@
            @if(isset($student))
              @method('PUT')
            @endif
+           <input type="hidden" value="" name="student_id" id="student_id">
            @include('partials.form.grade')
            <div class="form-group">
               <label for="jaName">氏名 <span class="badge badge-danger ml-2">Required</span></label>
@@ -60,7 +60,21 @@
               <input type="email" name="email2" id="email2" class="form-control" value="{{isset($student) ? $student->student->email2 : old('email2')}}">
            </div>
            @include('partials.form.address')
-           @include('partials.form.lesson')
+           <!-- set this specific form for lesson here because this is to show lesson group -->
+           <div class="form-group">
+              <label for="lesson">Lesson <span class="badge badge-danger ml-2">Required</span></label>
+              <select class="form-control" name="lesson" id="lesson">
+                <option selected disabled>Please select</option>
+                @foreach($lessons as $lesson)
+                  @if(isset($student))
+                  <option value="{{$lesson['id']}}" {{$lesson['id']==$student->lesson_group_id ? 'selected' : ''}}>{{$lesson['name']}}</option>
+                  @else
+                  <option value="{{$lesson['id']}}" {{$lesson['id']==old('lesson') ? 'selected' : ''}}>{{$lesson['name']}}</option>
+                  @endif
+
+                @endforeach
+              </select>
+            </div>
            @include('partials.form.bususe')
            @include('partials.form.pickup')
            @include('partials.form.send')
@@ -90,6 +104,7 @@
                 <!-- Modal body -->
                   <div class="modal-body">
                       <div class='alert alert-success' style="display:none">Place added successfully.</div>
+                      <div class='alert alert-danger' style="display:none"></div>
                       <div class="form-group">
                       <label for="name">Name</label>
                       <input class="form-control" type="text" name="name" id="place_name" placeholder="Please type a name of the condo or mubaan">
@@ -152,6 +167,7 @@
       if(confirm("Are you sure you want to fill in input fields with this student's information ?")){
         $('.generated_alert').remove();
         $('.card-body').prepend("<div class='generated_alert alert alert-danger'>Lessonを選んでください。</div><div class='generated_alert alert alert-danger'>バス利用についても確認してください。</div>");
+        $('#student_id').val(students[number]['student_id']);
         $('#grade').children("option[value='"+students[number]['student']['grade']+"']").attr('selected','selected');
         $('#jaName').val(students[number]['student']['jaName']);
         $('#kanaName').val(students[number]['student']['kanaName']);
@@ -185,7 +201,15 @@
       $.ajax({
           type:'POST',
           url:"{{route('settings/places/add_place_ajax')}}",
-          data:{name:place_name,_token:"{{csrf_token()}}"}
+          data:{name:place_name,_token:"{{csrf_token()}}"},
+          error:function(data){
+            var ajax_errors=JSON.parse(data.responseText);
+            $('.modal-body .alert-danger').text(ajax_errors.errors.name);
+            $('.modal-body .alert-danger').show();
+            setTimeout(function(){
+              $('.alert-danger').slideUp();
+            }, 3000);
+          }
         }).done(function(data){
           console.log(data);
           $('#place_name').val('');
@@ -193,9 +217,9 @@
           setTimeout(function(){
               $('.alert-success').slideUp();
             }, 2000);
-          $('#address').append("<option selected val="+data.id+">"+data.name+"</option>");
-          $('#send').append("<option selected val="+data.id+">"+data.name+"</option>");
-          $('#pickup').append("<option selected val="+data.id+">"+data.name+"</option>");
+          $('#address').append("<option selected value="+data.id+">"+data.name+"</option>");
+          $('#send').append("<option selected value="+data.id+">"+data.name+"</option>");
+          $('#pickup').append("<option selected value="+data.id+">"+data.name+"</option>");
         });
     });
     
