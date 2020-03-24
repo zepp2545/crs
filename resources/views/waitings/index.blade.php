@@ -12,6 +12,7 @@
     <table class="table table table-bordered">
       <thead class="thead-dark">
         <tr>
+            <th class="application_date">Application Date</th>
             <th class='grade'>Grade</th>
             <th class='jaName'>名前</th>
             <th class='kanaName'>カナ</th>
@@ -34,6 +35,7 @@
       
       <tbody>
         <tr class="table_row_model d-none">
+          <td class="application_date"></td>
           <td class="grade"></td>
           <td class="jaName"></td>
           <td class="kanaName"></td>
@@ -103,11 +105,12 @@
              var send_details=data[i]['send_details']?data[i]['send_details']:'';
              var pickup=data[i]['pickup']?data[i]['pickup']['name']:'';
              var send=data[i]['send']?data[i]['send']['name']:'';
-             
+             var application_date=new Date(data[i]['created_at']);
              cloned_row.removeClass('d-none');
              cloned_row.removeClass('table_row_model');
              cloned_row.addClass('cloned_row');
              cloned_row.attr('data-id',data[i]['id']);
+             cloned_row.find('.application_date').text(application_date.getFullYear()+"-"+"0"+String(application_date.getMonth()+1)+"-"+application_date.getDate());
              cloned_row.find('.grade').text(data[i]['student']['grade']);
              cloned_row.find('.jaName').text(data[i]['student']['jaName']);
              cloned_row.find('.kanaName').text(data[i]['student']['kanaName']);
