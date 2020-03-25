@@ -60,7 +60,7 @@ class TrialStudentsController extends Controller
           DB::rollback();
         }
 
-        return redirect(route('trials.create'))->with('success','New student registered successfully');
+        return redirect(route('trials.index'))->with('success','New student registered successfully');
     }
 
     private function register_student_info($request){
