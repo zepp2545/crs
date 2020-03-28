@@ -89,7 +89,7 @@ class BulkEmailController extends Controller
          
    
          Mail::raw($request->body,function($message)use($data){
-            $message->to('info@cnanabroad.com','Liclass受付');
+            $message->to('info@liclass.com','Liclass受付');
             $message->subject($data['subject']);
             $message->bcc($data['addresses']);
             foreach($data['files'] as $file){
