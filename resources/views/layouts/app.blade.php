@@ -18,7 +18,7 @@
                   <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="{{route('students.index')}}">Student List</a>
                     <a class="dropdown-item" href="{{route('students.lessonList')}}">Lesson List</a>
-                    <a class="dropdown-item" href="{{route('students.dropouts')}}">Drop Out List</a>
+                    <a class="dropdown-item" href="{{route('students.dropouts')}}">Cancelation List</a>
                   </div>
                 </li>
                 <li class="dropdown">

@@ -182,10 +182,16 @@ span.consider{
   height:30px;
 }
 
+.notice{
+  color:blue;
+}
+
 /* bulk email */
 
 .emailContainer input[type="text"],.emailContainer input[type="file"],.emailContainer select{
   max-width:400px !important;
 }
+
+
 
 

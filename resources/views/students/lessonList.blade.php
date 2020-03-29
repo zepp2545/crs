@@ -99,15 +99,19 @@
             cloned_row.addClass('cloned_row');
             
             //set backgroud color, start day and trial day by status
+            
+
             if(data[i]){
               if((data[i]['status']===4 || data[i]['status']===6) && Date.parse(data[i]['trial_date'])+(1000*60*60*24)>=date.getTime()){
                   cloned_row.addClass('trial');
-                  cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Trial Date: "+data[i]['trial_date']);      
+                  cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Trial Date: "+get_date_with_day(data[i]['trial_date']));      
               }else if((data[i]['status']===7 || data[i]['status']===8)&&Date.parse(data[i]['start_date'])+(1000*60*60*24)>=date.getTime()){
-                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Start Date: "+data[i]['start_date']);
-                }else if(data[i]['status']===9){
+                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Start Date: "+get_date_with_day(data[i]['start_date']));
+              }else if(data[i]['status']===9){
                 cloned_row.addClass('suspended');
                 cloned_row.find('.jaName').html(data[i]['student']['jaName']);
+              }else if(data[i]['quit_date']){
+                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='notice'>Quit Date: "+get_date_with_day(data[i]['quit_date']));
               }else{
                 cloned_row.find('.jaName').text(data[i]['student']['jaName']);
               }
@@ -137,8 +141,21 @@
 
       });
 
+      function get_date_with_day(date){
+
+        let weekChars = [ "日", "月", "火", "水", "木", "金", "土"];
+
+        let date_obj=new Date(date);
+
+        return date+'('+weekChars[date_obj.getDay()]+')';
+      
+      }
+
 
     });
+
+
+    
 
 </script>
 
