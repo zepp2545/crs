@@ -134,7 +134,8 @@
 
        <div class="card my-4 mx-auto lesson_info">
          <div class="card-header">
-           <h3>Lesson Info</h3>
+           <h3 class="d-inline-block">Lesson Info</h3>
+           @include('partials.addLesson')
          </div>
          <div class="card-body">
          <ul class="list-group list-group-flush">
@@ -175,7 +176,7 @@
                                   @if(isset($student))
                                     <option value="{{$lesson->id}}" {{$lesson->id==$active_lesson->lesson->id ? 'selected' : ''}}>{{$lesson->name}}</option>
                                   @else
-                                    <option value="{{$lesson->id}}" {{$lesson==old('lesson') ? 'selected' : ''}}>{{$lesson->name}}</option>
+                                    <option value="{{$lesson->id}}" {{$lesson->id==old('lesson') ? 'selected' : ''}}>{{$lesson->name}}</option>
                                   @endif
                                 @endforeach
                              </select>
@@ -198,7 +199,7 @@
                           <div class="form-group">
                             <label for="pickup{{$active_lesson->id}}">Pick Up</label>
                             <select class="form-control" name="pickup" id="pickup{{$active_lesson->id}}">
-                              <option selected disabled>Please select</option>
+                              <option selected value="0">---</option>
                               @foreach($places as $place)
                                 @if(isset($student))
                                     <option value="{{$place['id']}}" {{$place['id']==$active_lesson->pickup_id ? 'selected' : ''}}>{{$place['name']}}</option>
@@ -215,7 +216,7 @@
                           <div class="form-group">
                             <label for="send{{$active_lesson->id}}">Send</label>
                             <select class="form-control" name="send" id="send{{$active_lesson->id}}">
-                              <option selected disabled>Please select</option>
+                              <option selected value="0">---</option>
                               @foreach($places as $place)
                                 @if(isset($student))
                                     <option value="{{$place['id']}}" {{$place['id']==$active_lesson->pickup_id ? 'selected' : ''}}>{{$place['name']}}</option>

@@ -2,7 +2,8 @@
 
 @section('content')
   @include('partials.alerts.success')
-  <h2>Students who left lesson</h2>
+  <h2>Cancelation List</h2>
+  <p>講座を辞めた生徒の情報がこちらに記載されます。Student Listに戻すには「Restore」をしてください。</p>
   <div class="searchContent my-4">
     <form action="{{route('students.quit.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
         @csrf

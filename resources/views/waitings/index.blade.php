@@ -187,8 +187,9 @@
             data:{id:student_lesson_id,status:status,_token:'{{csrf_token()}}'}
           }).done(function(data){
             if(status==4){
-              $("[data-id="+student_lesson_id+"]").css('background-color','#ddd');
-              window.location.href="{{url('/trials')}}"+"/"+data.id+"/edit";
+              // $("[data-id="+student_lesson_id+"]").css('background-color','#ddd');
+              window.location.href="{{url('/trials')}}"+"/"+data.id+"/edit?from_waiting=true";
+              return false;
             }else if(status==2){
               $("[data-id="+student_lesson_id+"]").css('background-color','red');
             }else if(status==3){

@@ -22,8 +22,8 @@
             </ul>
           </div>
          @endif
-         @if(url()->previous('/waitings')===url('/waitings'))
-          <div div class="alert alert-danger">ウェイティングのStatusから移行してきた場合は「Lesson」を必ず設定してください。</div>
+         @if(url()->previous('/waitings')===url('/waitings') && request()->query('from_waiting'))
+          <div div class="alert alert-danger">ウェイティングのStatusから移行してきた場合は「Lesson」「Trial Date」を必ず設定してください。</div>
          @endif  
          
        </div>

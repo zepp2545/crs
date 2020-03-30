@@ -23,7 +23,7 @@ class TrialStudentsController extends Controller
       if(session('searched_students')){
         $students=session('searched_students');
       }else{
-        $students=StudentLesson::whereBetween('status',[4,8])->whereNotNull('trial_date')->orderBy('created_at','desc')->get();
+        $students=StudentLesson::whereBetween('status',[4,8])->whereNotNull('trial_date')->orderBy('trial_date','desc')->get();
       }
       return view('trials.index')->with('students',$students);
     }

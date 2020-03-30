@@ -50,7 +50,7 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        return view('students.register')->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
+        return view('students.create')->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
     }
 
     /**
@@ -59,9 +59,34 @@ class StudentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
+      // store individual student's basic info 
+      DB::beginTransaction();
 
+      try{
+        $student=Student::create([
+          'grade'=>$request->grade,
+          'jaName'=>$request->jaName,
+          'kanaName'=>$request->kanaName,
+          'enName'=>$request->enName,
+          'tel1'=>$request->tel1,
+          'tel2'=>$request->tel2,
+          'email1'=>$request->email1,
+          'email2'=>$request->email2,
+          'address_id'=>$request->address,
+          'addDetails'=>$request->addDetails,
+          'note'=>$request->note,
+          'province'=>$request->province
+        ]);
+
+        DB::commit();
+      }catch(\Exception $e){
+        DB::rollback();
+      }
+      
+      return redirect(route('students.edit',['id'=>$student]))->with('success','Student Basic info is updated successfully.');
     }
 
     /**
@@ -121,7 +146,7 @@ class StudentsController extends Controller
         }
         
         return redirect(route('students.edit',['id'=>$id]))->with('success','Student Basic info is updated successfully.');
-    }
+    }   
 
     /**
      * Remove the specified resource from storage.
@@ -188,6 +213,34 @@ class StudentsController extends Controller
 
       return redirect(route('students.edit',['id'=>$active_lesson->student_id]))->with('success','Lesson info is updated successfully.');
 
+      
+    }
+
+
+    //store lesson of an individual this has to be removed later
+    public function student_lesson_store(UpdateStudentLessonRequest $request,$id){
+      DB::beginTransaction();
+      
+      try{
+        $student_lesson=StudentLesson::create([
+            'student_id'=>$id,
+            'lesson_id'=>$request->lesson,
+            'bus'=>$request->busUse,
+            'pickup_id'=>$request->pickup,
+            'pickup_details'=>$request->pickupDetails,
+            'send_id'=>$request->send,
+            'send_details'=>$request->sendDetails,
+            'status'=>$request->status,
+            'start_date'=>$request->start_date,
+            'quit_date'=>$request->quit_date
+        ]);
+
+        DB::commit();
+      }catch(\Exception $e){
+        DB::rollback();
+      }
+
+      return redirect(route('students.edit',['id'=>$student_lesson->student_id]))->with('success','Lesson info is created successfully.');
       
     }
 
