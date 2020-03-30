@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'info@liclass.com'),
-        'name' => env('MAIL_FROM_NAME', 'Liclass受付'),
+        'name' => env('MAIL_FROM_NAME', 'Liclass受付担当'),
     ],
 
     /*

@@ -15,7 +15,7 @@ use App\Lesson;
 class BulkEmailController extends Controller
 {
    public function create(){
-       return view('bulkemail.create')->with('lessons',Lesson::all());
+       return view('bulkemail.create')->with('lessons',Lesson::orderBy('kana','asc')->get());
    }
 
    public function send(BulkEmailRequest $request){
@@ -89,7 +89,7 @@ class BulkEmailController extends Controller
          
    
          Mail::raw($request->body,function($message)use($data){
-            $message->to('info@liclass.com','Liclass受付');
+            $message->to('info@liclass.com','Liclass受付担当');
             $message->subject($data['subject']);
             $message->bcc($data['addresses']);
             foreach($data['files'] as $file){
