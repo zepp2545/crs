@@ -32,7 +32,7 @@
            </div>
            <div class="form-group lessonCheck d-none">
              <p>Bcc by Lesson<span class="badge badge-danger ml-2">Required</span></p>
-             <p>曜日で分かれているレッスンはどちらかだけ選択すれば送信されます。(中学部本科)</p>
+             <p>曜日で分かれているレッスンはどちらかだけ選択すれば送信されます。(中学部本科,中3理社特訓)</p>
                @foreach($lessons as $lesson)
                  <div class="form-check form-check-inline">
                     <input type="checkbox" id="lesson_{{$lesson->id}}" class="form-check-input" name="lessons[]" value="{{$lesson->id}}">
