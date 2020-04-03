@@ -1,13 +1,14 @@
 html{
   height:100%;
+  overflow: hidden;
 }
 
 body{
   height:100%;
 }
-/* .mainRow,.sidebar,.mainContent{
+.mainRow,.sidebar,.mainContent{
   height:100%;
-} */
+}
 
 .table-bordered td, .table-bordered th {
   border: 1px solid #ced2d6 !important;
