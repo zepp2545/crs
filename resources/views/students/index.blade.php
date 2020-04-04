@@ -19,70 +19,69 @@
   </div>
 
 
-  <div class="customerList">
-              <div class="studentList">
-                  <table class="table table table-bordered">
-                    <thead class="thead-dark">
-                      <tr>
-                          <th class="number">No.</th>
-                          <th class='grade'>Grade</th>
-                          <th class='jaName'>名前</th>
-                          <th class='kanaName'>カナ</th>
-                          <th class="enName">Name</th>
-                          <th class='lesson'>Lesson</th>
-                          <th class="tel1">tel1</th>
-                          <th class="tel2">tel2</th>
-                          <th class='email email'>Email</th>
-                          <th class='email2 email'>Email2</th>
-                          <th class='province'>Province</th>
-                          <th class="adress">Address</th>
-                          <th class="note">Note</th>
-                          <th class='edit'>Edit</th>
-                      </tr>
-                    </thead>
+      <div class="studentList">
+          <table class="table table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                  <th class="number">No.</th>
+                  <th class='grade'>Grade</th>
+                  <th class='jaName'>名前</th>
+                  <th class='kanaName'>カナ</th>
+                  <th class="enName">Name</th>
+                  <th class='lesson'>Lesson</th>
+                  <th class="tel1">tel1</th>
+                  <th class="tel2">tel2</th>
+                  <th class='email email'>Email</th>
+                  <th class='email2 email'>Email2</th>
+                  <th class='province'>Province</th>
+                  <th class="adress">Address</th>
+                  <th class="note">Note</th>
+                  <th class='edit'>Edit</th>
+              </tr>
+            </thead>
 
-                    <tbody>
-                       <?php $i=1; ?>
-                      @foreach($students as $student)
-                      
-                        <tr data-id="{{$student->id}}">
-                          <td class="number">{{$i}}</td>
-                          <td class="grade">{{$student->grade}}</td>
-                          <td class="jaName">{{$student->jaName}}</td>
-                          <td class="kanaName">{{$student->kanaName}}</td>
-                          <td class="enName">{{$student->enName}}</td>
-                          <td class="lesson">
-                          
-                          @foreach($student->active_lessons as $student_lesson)
-                             {{optional($student_lesson->lesson)->name}}
-                             @foreach(Config::get('const.bususes') as $key=>$value)
-                              {{$key==optional($student_lesson)->bus ? '【'.$value.'】' : ''}}
-                             @endforeach
-                             <br>
-                          @endforeach
-                          
-                          
-                          </td>
-                          <td class="tel1">{{$student->tel1}}</td>
-                          <td class="tel2">{{$student->tel2}}</td>
-                          <td class="email1 email">{{$student->email1}}</td>
-                          <td class="email2 email">{{$student->email2}}</td>
-                          <td class="province">{{$student->province}}</td>
-                          <td class="address">{{optional($student->address)->name}}<br>{{$student->addDetails}}</td>
-                          <td class="note">{{$student->note}}</td>
-                          <td class="edit"><a class="btn btn-primary text-white" href="{{route('students.edit',['id'=> $student->id])}}">Edit</a></td>
-                        </tr>
-                        <?php $i++ ?>
+            <tbody>
+                <?php $i=1; ?>
+              @foreach($students as $student)
+              
+                <tr data-id="{{$student->id}}">
+                  <td class="number">{{$i}}</td>
+                  <td class="grade">{{$student->grade}}</td>
+                  <td class="jaName">{{$student->jaName}}</td>
+                  <td class="kanaName">{{$student->kanaName}}</td>
+                  <td class="enName">{{$student->enName}}</td>
+                  <td class="lesson">
+                  
+                  @foreach($student->active_lessons as $student_lesson)
+                      {{optional($student_lesson->lesson)->name}}
+                      @foreach(Config::get('const.bususes') as $key=>$value)
+                      {{$key==optional($student_lesson)->bus ? '【'.$value.'】' : ''}}
                       @endforeach
+                      <br>
+                  @endforeach
+                  
+                  
+                  </td>
+                  <td class="tel1">{{$student->tel1}}</td>
+                  <td class="tel2">{{$student->tel2}}</td>
+                  <td class="email1 email">{{$student->email1}}</td>
+                  <td class="email2 email">{{$student->email2}}</td>
+                  <td class="province">{{$student->province}}</td>
+                  <td class="address">{{optional($student->address)->name}}<br>{{$student->addDetails}}</td>
+                  <td class="note">{{$student->note}}</td>
+                  <td class="edit"><a class="btn btn-primary text-white" href="{{route('students.edit',['id'=> $student->id])}}">Edit</a></td>
+                </tr>
+                <?php $i++ ?>
+              @endforeach
 
-                    </tbody>
+            </tbody>
 
 
-                  </table>
+          </table>
 
-              </div>
+      </div>
 
-          </div>
+      
 
 
 
