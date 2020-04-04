@@ -16,7 +16,7 @@
     </div>
     
   </div>
-  <div class="d-none" id="studentList">
+  <div class="d-none studentList" id="studentList">
     <h5 class="title_model d-none"><span class="trial d-inline-block"></span><small>  体験生</small>&nbsp;&nbsp;<span class="suspended d-inline-block"></span><small>休会中</small></h5>
     <table class="table table-bordered lessonList">
         
