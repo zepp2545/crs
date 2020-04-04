@@ -31,7 +31,6 @@ input,select{
 
 .container{
   height:100%;
-  overflow: scroll;
 }
 
 .sidebar{
