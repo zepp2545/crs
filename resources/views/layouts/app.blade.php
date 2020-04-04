@@ -9,7 +9,7 @@
   <body>
      <div class="mainRow">
        <div class="sidebar bg-light">
-         <div class="container my-4">
+         <div class="container py-4">
            <h2 class="text-center"><a href="#">Menu</a></h2>
            <div class="list mt-4">
              <ul>
