@@ -281,7 +281,7 @@ class StudentsController extends Controller
     }
 
     public function lessonList(){
-      return view('students.lessonList')->with('lessons',Lesson::all());
+      return view('students.lessonList')->with('lessons',Lesson::orderBy('kana','asc')->get());
     }
 
     public function lessonList_ajax(Request $request){
