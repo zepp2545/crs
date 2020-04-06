@@ -72,7 +72,7 @@
             </div>
             <div class="form-group">
               <label for="addressDetails">Address Details</label>
-              <input type="text" id="addressDetails" name="addressDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{old('addressDetails')}}">
+              <input type="text" id="addressDetails" name="addDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{old('addressDetails')}}">
             </div>
            <div class="form-group">
              <label for="province">Province</label>
