@@ -84,7 +84,7 @@
             </div>
             <div class="form-group">
               <label for="addressDetails">Address Details</label>
-              <input type="text" id="addressDetails" name="addressDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $student->address_details : old('addressDetails')}}">
+              <input type="text" id="addressDetails" name="addDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $student->address_details : old('addDetails')}}">
             </div>
            <div class="form-group">
              <label for="province">Province</label>
@@ -211,7 +211,7 @@
                           </div>
                           <div class="form-group">
                             <label for="pickupDetails{{$active_lesson->id}}">Pick Up Details</label>
-                            <input type="text" id="pickupDetails{{$active_lesson->id}}" name="pickupDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $student->pickup_details : old('pickupDetails')}}">
+                            <input type="text" id="pickupDetails{{$active_lesson->id}}" name="pickupDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $active_lesson->pickup_details : old('pickupDetails')}}">
                           </div>
                           <div class="form-group">
                             <label for="send{{$active_lesson->id}}">Send</label>
