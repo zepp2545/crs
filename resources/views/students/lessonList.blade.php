@@ -111,8 +111,7 @@
                 cloned_row.addClass('suspended');
                 cloned_row.find('.jaName').html(data[i]['student']['jaName']);
               }else if(data[i]['status']===6){
-                cloned_row.addClass('suspended');
-                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br>[検討中]");
+                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>[検討中]</span>");
               }else if(data[i]['quit_date']){
                 cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='notice'>Quit Date: "+get_date_with_day(data[i]['quit_date'])+"</span>");
               }else{
