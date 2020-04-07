@@ -104,14 +104,17 @@
             if(data[i]){
               if((data[i]['status']===4 || data[i]['status']===6) && Date.parse(data[i]['trial_date'])+(1000*60*60*24)>=date.getTime()){
                   cloned_row.addClass('trial');
-                  cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Trial Date: "+get_date_with_day(data[i]['trial_date']));      
+                  cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Trial Date: "+get_date_with_day(data[i]['trial_date'])+"</span>");      
               }else if((data[i]['status']===7 || data[i]['status']===8)&&Date.parse(data[i]['start_date'])+(1000*60*60*24)>=date.getTime()){
-                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Start Date: "+get_date_with_day(data[i]['start_date']));
+                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Start Date: "+get_date_with_day(data[i]['start_date'])+"</span>");
               }else if(data[i]['status']===9){
                 cloned_row.addClass('suspended');
                 cloned_row.find('.jaName').html(data[i]['student']['jaName']);
+              }else if(data[i]['status']===6){
+                cloned_row.addClass('suspended');
+                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>[検討中]</span>");
               }else if(data[i]['quit_date']){
-                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='notice'>Quit Date: "+get_date_with_day(data[i]['quit_date']));
+                cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='notice'>Quit Date: "+get_date_with_day(data[i]['quit_date'])+"</span>");
               }else{
                 cloned_row.find('.jaName').text(data[i]['student']['jaName']);
               }
