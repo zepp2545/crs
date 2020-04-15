@@ -32,7 +32,7 @@
            </div>
            <div class="form-group lessonCheck d-none">
              <p>Bcc by Lesson<span class="badge badge-danger ml-2">Required</span></p>
-             <p>曜日で分かれているレッスンはどちらかだけ選択すれば送信されます。(中学部本科,中3理社特訓)</p>
+             <p>複数曜日のレッスン(中学部本科,中3理社特訓)はどちらかだけ選択すれば送信されます。両方選んでも1件だけ送信されます。</p>
                @foreach($lessons as $lesson)
                  <div class="form-check form-check-inline">
                     <input type="checkbox" id="lesson_{{$lesson->id}}" class="form-check-input" name="lessons[]" value="{{$lesson->id}}">
@@ -65,6 +65,10 @@
                 <input type="file" name="file2" id="file2" class="form-control">
                 <label for="file3">File 3</label>
                 <input type="file" name="file3" id="file3" class="form-control">
+                <label for="file3">File 4</label>
+                <input type="file" name="file4" id="file4" class="form-control">
+                <label for="file3">File 5</label>
+                <input type="file" name="file5" id="file5" class="form-control">
             </div>
            <div class="form-group">
               <label for="body">Body<span class="badge badge-danger ml-2">Required</span></label>
