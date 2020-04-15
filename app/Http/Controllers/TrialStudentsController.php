@@ -35,7 +35,7 @@ class TrialStudentsController extends Controller
      */
     public function create()
     {
-        return view('trials.register')->with('lessons',Lesson::all())->with('places',Place::all());
+        return view('trials.register')->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
     }
 
     /**
@@ -152,7 +152,7 @@ class TrialStudentsController extends Controller
     {
       $student=StudentLesson::whereBetween('status',[4,8])->find($id);
 
-      return view('trials.register')->with('student',$student)->with('lessons',Lesson::all())->with('places',Place::all());
+      return view('trials.register')->with('student',$student)->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
     }
 
     /**

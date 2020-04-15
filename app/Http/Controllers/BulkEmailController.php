@@ -19,17 +19,18 @@ class BulkEmailController extends Controller
    }
 
    public function send(BulkEmailRequest $request){
-      $email_addresses;
-      $path_storage=[]; 
-      $bccs=[];
-      $files=[];
-      $data=[
-         'subject'=>'',
-         'addresses'=>'',
-         'files'=>''
-      ];
-      
-      DB::transaction(function()use($request){
+      DB::beginTransaction();
+
+      try{
+         $email_addresses;
+         $path_storage=[]; 
+         $bccs=[];
+         $files=[];
+         $data=[
+            'subject'=>'',
+            'addresses'=>'',
+            'files'=>''
+         ];
          
          if(isset($request->file1)){
             $file1=str_replace('public/','',$request->file('file1')->storeAs('public',$request->file('file1')->getClientOriginalName()));
@@ -83,21 +84,20 @@ class BulkEmailController extends Controller
            if(empty($address->email1)){
               continue;
            }else{
-            $bcc[]=$address->email1;
+            $bccs[]=$address->email1;
            }
    
            if(empty($address->email2)){
               continue;
            }else{
-            $bcc[]=$address->email2;
+            $bccs[]=$address->email2;
            }
            
          }
    
-   
-         $data['addresses']=array_unique($bcc); 
-         
-         dd($data['addresses']);
+         if(!empty($bccs)){
+            $data['addresses']=array_unique($bccs); 
+         }
    
          Mail::raw($request->body,function($message)use($data){
             $message->to('info@liclass.com','Liclass受付担当');
@@ -108,13 +108,20 @@ class BulkEmailController extends Controller
             }
              
          });
+
+         DB::commit();
    
          Storage::delete($path_storage);
-   
 
-      });
+         return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
 
-      return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
+      }catch(\Exception $e){
+         DB::rollback();
+         Storage::delete($path_storage);
+         return back();
+      }
+
+      
 
    }
 }

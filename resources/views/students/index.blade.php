@@ -26,7 +26,7 @@
                   <th class="number">No.</th>
                   <th class='grade'>Grade</th>
                   <th class='jaName'>名前</th>
-                  <th class='kanaName'>カナ</th>
+                  <th class='kanaName'>かな</th>
                   <th class="enName">Name</th>
                   <th class='lesson'>Lesson</th>
                   <th class="tel1">tel1</th>
