@@ -106,7 +106,7 @@
             <button class="btn btn-info" type="submit">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
-            </form>
+        　</form>
 
         </div>
         </div>
