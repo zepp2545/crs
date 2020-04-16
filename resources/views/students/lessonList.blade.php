@@ -127,7 +127,7 @@
               cloned_row.find('.bus').text(data[i]['bus'] in bususes ? bususes[data[i]['bus']] : '');
               cloned_row.find('.pickUp').html(pickup+'<br>'+pickup_details);
               cloned_row.find('.send').html(send+'<br>'+send_details);
-              cloned_row.find('.note').text(data[i]['note']);
+              cloned_row.find('.note').text(data[i]['student']['note']);
             }
             cloned_row.find('.number').text(i+1);
             cloned_row.appendTo('tbody');
