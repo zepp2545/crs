@@ -19,9 +19,7 @@ class BulkEmailController extends Controller
    }
 
    public function send(BulkEmailRequest $request){
-      DB::beginTransaction();
-
-      try{
+      DB::transaction(function () use ($request){
          $email_addresses;
          $path_storage=[]; 
          $bccs=[];
@@ -103,24 +101,17 @@ class BulkEmailController extends Controller
             $message->to('info@liclass.com','Liclass受付担当');
             $message->subject($data['subject']);
             $message->bcc($data['addresses']);
-            foreach($data['files'] as $file){
-               $message->attach('storage/'.$file);
-            }
-             
+            if(!empty($data['files'])){
+               foreach($data['files'] as $file){
+                  $message->attach('storage/'.$file);
+               }
+            }   
          });
-
-         DB::commit();
-   
+         
          Storage::delete($path_storage);
-
          return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
 
-      }catch(\Exception $e){
-         DB::rollback();
-         Storage::delete($path_storage);
-         return back();
-      }
-
+      });
       
 
    }
