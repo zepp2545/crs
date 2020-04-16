@@ -46,7 +46,7 @@
               <input type="text" name="jaName" id="jaName" class="form-control" value="{{isset($student) ? $student->jaName : old('jaName')}}">
            </div>
            <div class="form-group">
-              <label for="kanaName">カナ<span class="badge badge-danger ml-2">Required</span></label>
+              <label for="kanaName">かな<span class="badge badge-danger ml-2">Required</span></label>
               <input type="text" name="kanaName" id="kanaName" class="form-control" value="{{isset($student) ? $student->kanaName : old('kanaName')}}">
            </div>
            <div class="form-group">

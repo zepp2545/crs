@@ -25,7 +25,7 @@ class StudentsController extends Controller
         $students=session('searched_students');
       }else{
         $students=Student::whereHas('active_lessons',function($query){
-          $query->whereBetween('status',[7,8]);
+          $query->whereBetween('status',[7,9]);
 		})->orderByRaw("case
 			   when grade='H1' then 1
                when grade='J3' then 2
@@ -38,7 +38,7 @@ class StudentsController extends Controller
                when grade='E2' then 9
                when grade='E1' then 10
                when grade='K' then 11
-               else 11
+               else 12
                end")->get();
       }
       return view('students.index')->with('students',$students);

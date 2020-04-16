@@ -24,7 +24,6 @@ class UpdateStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'lesson'=>'required',
             'grade'=>'required|max:255',
             'jaName'=>'required|max:255',
             'kanaName'=>'required|max:255',

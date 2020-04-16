@@ -19,17 +19,18 @@ class BulkEmailController extends Controller
    }
 
    public function send(BulkEmailRequest $request){
-      $email_addresses;
-      $path_storage=[]; 
-      $bccs=[];
-      $files=[];
-      $data=[
-         'subject'=>'',
-         'addresses'=>'',
-         'files'=>''
-      ];
-      
-      DB::transaction(function()use($request){
+      DB::beginTransaction();
+
+      try{
+         $email_addresses;
+         $path_storage=[]; 
+         $bccs=[];
+         $files=[];
+         $data=[
+            'subject'=>'',
+            'addresses'=>'',
+            'files'=>''
+         ];
          
          if(isset($request->file1)){
             $file1=str_replace('public/','',$request->file('file1')->storeAs('public',$request->file('file1')->getClientOriginalName()));
@@ -45,48 +46,58 @@ class BulkEmailController extends Controller
             $file3=str_replace('public/','',$request->file('file3')->storeAs('public',$request->file('file3')->getClientOriginalName()));
             $files[]=$file3;
          }
-   
-         $data['files']=$files;
-   
-         foreach($files as $file){
-            $path_storage[]='public/'.$file;
+
+         if(isset($request->file4)){
+            $file4=str_replace('public/','',$request->file('file4')->storeAs('public',$request->file('file4')->getClientOriginalName()));
+            $files[]=$file4;
          }
-         
-         
-   
+
+         if(isset($request->file5)){
+            $file5=str_replace('public/','',$request->file('file5')->storeAs('public',$request->file('file5')->getClientOriginalName()));
+            $files[]=$file5;
+         }
+          
+         if(!empty($files)){
+            $data['files']=$files;
+            foreach($files as $file){
+               $path_storage[]='public/'.$file;
+            }
+         }
+
          if(isset($request->lessons)){
    
              $email_addresses=Student::select('email1','email2')->whereHas('student_lessons',function($query) use ($request){
-                 $query->whereIn('lesson_id',$request->lessons); 
+                 $query->whereIn('lesson_id',$request->lessons)->whereBetween('status',[7,9]);
             })->get();
    
            
          }elseif(isset($request->grades)){
            $email_addresses=Student::select('email1','email2')->whereIn('grade',$request->grades)->whereHas('student_lessons',function($query) use ($request){
-               $query->whereBetween('status',[7,8]); 
+               $query->whereBetween('status',[7,9]); 
           })->get();
          }
    
          $data['subject']=$request->title;
+
    
          foreach($email_addresses as $address){
            if(empty($address->email1)){
               continue;
            }else{
-            $bcc[]=$address->email1;
+            $bccs[]=$address->email1;
            }
    
            if(empty($address->email2)){
               continue;
            }else{
-            $bcc[]=$address->email2;
+            $bccs[]=$address->email2;
            }
            
          }
    
-   
-         $data['addresses']=array_unique($bcc); 
-         
+         if(!empty($bccs)){
+            $data['addresses']=array_unique($bccs); 
+         }
    
          Mail::raw($request->body,function($message)use($data){
             $message->to('info@liclass.com','Liclass受付担当');
@@ -97,14 +108,20 @@ class BulkEmailController extends Controller
             }
              
          });
+
+         DB::commit();
    
          Storage::delete($path_storage);
-   
+
+         return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
+
+      }catch(\Exception $e){
+         DB::rollback();
+         Storage::delete($path_storage);
+         return back();
+      }
+
       
-
-      });
-
-      return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
 
    }
 }
