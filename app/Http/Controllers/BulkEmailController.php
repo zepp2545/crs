@@ -65,13 +65,13 @@ class BulkEmailController extends Controller
          if(isset($request->lessons)){
    
              $email_addresses=Student::select('email1','email2')->whereHas('student_lessons',function($query) use ($request){
-                 $query->whereIn('lesson_id',$request->lessons)->whereBetween('status',[7,9]);
+                 $query->whereIn('lesson_id',$request->lessons)->whereBetween('status',[7,8]);
             })->get();
    
            
          }elseif(isset($request->grades)){
            $email_addresses=Student::select('email1','email2')->whereIn('grade',$request->grades)->whereHas('student_lessons',function($query) use ($request){
-               $query->whereBetween('status',[7,9]); 
+               $query->whereBetween('status',[7,8]); 
           })->get();
          }
    
@@ -95,7 +95,8 @@ class BulkEmailController extends Controller
    
          if(!empty($bccs)){
             $data['addresses']=array_unique($bccs); 
-         }
+		 }
+
    
          Mail::raw($request->body,function($message)use($data){
             $message->to('info@liclass.com','Liclass受付担当');

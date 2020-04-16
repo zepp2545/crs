@@ -26,18 +26,19 @@ class StudentsController extends Controller
       }else{
         $students=Student::whereHas('active_lessons',function($query){
           $query->whereBetween('status',[7,9]);
-        })->orderByRaw("case
-               when grade='J3' then 1
-               when grade='J2' then 2
-               when grade='J1' then 3
-               when grade='E6' then 4
-               when grade='E5' then 5
-               when grade='E4' then 6
-               when grade='E3' then 7
-               when grade='E2' then 8
-               when grade='E1' then 9
-               when grade='K' then 10
-               else 11
+		})->orderByRaw("case
+			   when grade='H1' then 1
+               when grade='J3' then 2
+               when grade='J2' then 3
+               when grade='J1' then 4
+               when grade='E6' then 5
+               when grade='E5' then 6
+               when grade='E4' then 7
+               when grade='E3' then 8
+               when grade='E2' then 9
+               when grade='E1' then 10
+               when grade='K' then 11
+               else 12
                end")->get();
       }
       return view('students.index')->with('students',$students);
