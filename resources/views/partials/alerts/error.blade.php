@@ -5,5 +5,3 @@
    </div>
  @endforeach
 @endif
-
-{{ session('e') }}

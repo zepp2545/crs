@@ -19,6 +19,7 @@ class BulkEmailController extends Controller
    }
 
    public function send(BulkEmailRequest $request){
+
       DB::transaction(function () use ($request){
          $email_addresses;
          $path_storage=[]; 
@@ -74,6 +75,7 @@ class BulkEmailController extends Controller
                $query->whereBetween('status',[7,8]); 
           })->get();
          }
+
    
          $data['subject']=$request->title;
 
@@ -92,12 +94,11 @@ class BulkEmailController extends Controller
            }
            
          }
-   
+         
          if(!empty($bccs)){
             $data['addresses']=array_unique($bccs); 
-		 }
+       }
 
-   
          Mail::raw($request->body,function($message)use($data){
             $message->to('info@liclass.com','Liclass受付担当');
             $message->subject($data['subject']);
@@ -106,14 +107,13 @@ class BulkEmailController extends Controller
                foreach($data['files'] as $file){
                   $message->attach('storage/'.$file);
                }
-            }   
+            }  
          });
-         
+
          Storage::delete($path_storage);
-         return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
-
+         
       });
-      
 
+      return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
    }
 }
