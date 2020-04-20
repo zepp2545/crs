@@ -169,17 +169,18 @@ class StudentsController extends Controller
           $query->whereBetween('status',[7,9]);
         })->where('jaName','like','%'.$request->searched_name.'%')->orWhere('kanaName','like','%'.$request->searched_name.'%')->orWhere('enName','like','%'.$request->searched_name.'%')
         ->orderByRaw("case
-        when grade='J3' then 1
-        when grade='J2' then 2
-        when grade='J1' then 3
-        when grade='E6' then 4
-        when grade='E5' then 5
-        when grade='E4' then 6
-        when grade='E3' then 7
-        when grade='E2' then 8
-        when grade='E1' then 9
-        when grade='K' then 10
-        else 11
+        when grade='H1' then 1
+        when grade='J3' then 2
+        when grade='J2' then 3
+        when grade='J1' then 4
+        when grade='E6' then 5
+        when grade='E5' then 6
+        when grade='E4' then 7
+        when grade='E3' then 8
+        when grade='E2' then 9
+        when grade='E1' then 10
+        when grade='K' then 11
+        else 12
         end")->get();
 
         return redirect(route('students.index'))->with('searched_students',$students);
