@@ -2,11 +2,11 @@
 
 @section('content')
   @include('partials.alerts.success')
-  <h2>Trial Student List</h2>
-  <ul>
-   <li>「Status」を「受講中」に更新することでStudent Listに反映されるため、常にアップデートしてください。</li>
-  </ul>
-  <div class="searchContent my-4">
+  <div class="searchContent trial pt-4">
+    <h2>Trial Student List</h2>
+    <ul>
+    <li>「Status」を「受講中」に更新することでStudent Listに反映されるため、常にアップデートしてください。</li>
+    </ul>
     <form action="{{route('trials.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
         @csrf
 
@@ -21,12 +21,11 @@
   </div>
 
   <div class="listWrapper">
-            <h4>Trial Student List</h4>
             白は「体験待ち」です。
             <span class="ml-4 continue d-inline-block"></span> 継続
             <span class="ml-4 cancel d-inline-block"></span> 継続しない</small>
             <span class="ml-4 consider d-inline-block"></span> 受講検討中
-              <div class="studentList">
+              <div class="trialList">
                   <table class="table table table-bordered">
                     <thead class="thead-dark">
                       <tr>
