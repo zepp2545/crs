@@ -8,7 +8,7 @@
 
      @include('partials.alerts.error')
 
-     <div class="card  mt-4 mx-auto">
+     <div class="card my-4 mx-auto">
        <div class="card-header">
          <h3>{{isset($student) ? 'Edit Waiting Student' : 'Register Waiting Student'}}</h3>
          @if(!isset($student))

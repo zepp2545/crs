@@ -69,13 +69,13 @@ class StudentsController extends Controller
       try{
         $student=Student::create([
           'grade'=>$request->grade,
-          'jaName'=>$request->jaName,
-          'kanaName'=>$request->kanaName,
+          'jaName'=>remove_space($request->jaName),
+          'kanaName'=>remove_space($request->kanaName),
           'enName'=>$request->enName,
           'tel1'=>$request->tel1,
           'tel2'=>$request->tel2,
-          'email1'=>$request->email1,
-          'email2'=>$request->email2,
+          'email1'=>remove_space($request->email1),
+          'email2'=>remove_space($request->email2),
           'address_id'=>$request->address,
           'addDetails'=>$request->addDetails,
           'note'=>$request->note,
@@ -128,13 +128,13 @@ class StudentsController extends Controller
           $student=Student::find($id);
           $student->update([
             'grade'=>$request->grade,
-            'jaName'=>$request->jaName,
-            'kanaName'=>$request->kanaName,
+            'jaName'=>remove_space($request->jaName),
+            'kanaName'=>remove_space($request->kanaName),
             'enName'=>$request->enName,
             'tel1'=>$request->tel1,
             'tel2'=>$request->tel2,
-            'email1'=>$request->email1,
-            'email2'=>$request->email2,
+            'email1'=>remove_space($request->email1),
+            'email2'=>remove_space($request->email2),
             'address_id'=>$request->address,
             'addDetails'=>$request->addDetails,
             'note'=>$request->note,
@@ -165,10 +165,11 @@ class StudentsController extends Controller
      public function search(Request $request){
 
       if($request->input('type_of_list')==='students'){
-        $students=Student::whereHas('active_lessons',function($query) use ($request){
+        $students=Student::where(function($query) use ($request){
+          $query->where('jaName','like',remove_space($request->searched_name).'%')->orWhere('kanaName','like',remove_space($request->searched_name).'%')->orWhere('enName','like',remove_space($request->searched_name).'%');
+        })->whereHas('student_lessons',function($query) use ($request){
           $query->whereBetween('status',[7,9]);
-        })->where('jaName','like','%'.$request->searched_name.'%')->orWhere('kanaName','like','%'.$request->searched_name.'%')->orWhere('enName','like','%'.$request->searched_name.'%')
-        ->orderByRaw("case
+        })->orderByRaw("case
         when grade='H1' then 1
         when grade='J3' then 2
         when grade='J2' then 3
@@ -205,7 +206,8 @@ class StudentsController extends Controller
             'send_details'=>$request->sendDetails,
             'status'=>$request->status,
             'start_date'=>$request->start_date,
-            'quit_date'=>$request->quit_date
+            'quit_date'=>$request->quit_date,
+            'note'=>$request->bus_note
         ]);
 
         DB::commit();
@@ -304,7 +306,7 @@ class StudentsController extends Controller
 
       if($request->input('type_of_list')==='quit'){
         $students=StudentLesson::onlyTrashed()->whereHas('student',function($query) use ($request){
-          $query->where('jaName','like','%'.$request->searched_name.'%')->orWhere('kanaName','like','%'.$request->searched_name.'%')->orWhere('enName','like','%'.$request->searched_name.'%');
+          $query->where('jaName','like',remove_space($request->searched_name).'%')->orWhere('kanaName','like',remove_space($request->searched_name).'%')->orWhere('enName','like',remove_space($request->searched_name).'%');
         })->orderBy('deleted_at','desc')->get();
 
         return redirect(route('students.dropouts'))->with('searched_students',$students);

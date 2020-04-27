@@ -20,7 +20,7 @@
     </form>
   </div>
 
-  <div class="customerList">
+  <div class="listWrapper">
             <h4>Trial Student List</h4>
             白は「体験待ち」です。
             <span class="ml-4 continue d-inline-block"></span> 継続

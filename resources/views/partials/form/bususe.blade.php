@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="busUse">Bus Use @if(!Request::is('waitings/*'))<span class="badge badge-danger ml-2">Required</span>@endif</label>
+  <label for="busUse">Bus Use @if(!Request::is('waitings/*') && !Request::is('trials/*'))<span class="badge badge-danger ml-2">Required</span>@endif</label>
   <select class="form-control" name="busUse" id="busUse">
     <option selected disabled>Please select</option>
     @foreach(config('const.bususes') as $key => $value)

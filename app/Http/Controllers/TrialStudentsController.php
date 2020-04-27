@@ -23,8 +23,9 @@ class TrialStudentsController extends Controller
       if(session('searched_students')){
         $students=session('searched_students');
       }else{
-        $students=StudentLesson::whereBetween('status',[4,8])->whereNotNull('trial_date')->orderBy('trial_date','desc')->get();
+        $students=StudentLesson::whereBetween('status',[4,8])->orderBy('trial_date','desc')->get();
       }
+
       return view('trials.index')->with('students',$students);
     }
 
@@ -35,7 +36,7 @@ class TrialStudentsController extends Controller
      */
     public function create()
     {
-        return view('trials.register')->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
+        return view('trials.register')->with('active',false)->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
     }
 
     /**
@@ -46,62 +47,105 @@ class TrialStudentsController extends Controller
      */
     public function store(CreateStudentRequest $request)
     {
-        DB::beginTransaction();
+      $last_inserted_id=0;
+      $student_existance=false;
+
+      DB::beginTransaction();
 
         try{
-          $last_inserted_id=$this->register_student_info($request);
 
-          $this->register_student_lesson($request,$last_inserted_id);
+            //check if this post comes with imported student info. if empty if true,it means they filled in form on their own.
+            if(empty($request->student_id)){
+              $last_inserted_id=$this->check_existance_of_student($request);
+            }else{
+              $student_existance=Student::where('id',(int)$request->student_id)
+              ->where('jaName',remove_space($request->jaName))->where('enName',$request->enName)->where('kanaName',remove_space($request->kanaName))
+              ->where('grade',$request->grade)->exists();
 
+              if($student_existance){
+                $last_inserted_id=$request->student_id;
+              }else{
+                $last_inserted_id=$this->check_existance_of_student($request);   
+              }
+            }
 
-          DB::commit();
+            if($this->register_student_lesson($request,$last_inserted_id)){
+              DB::commit();
+              return redirect(route('trials.index'))->with('success','New student registered successfully');
+            }
 
         }catch(\Exception $e){
-          DB::rollback();
+            DB::rollback();
+            return redirect()->back()->with('student_existing_error',$e->getMessage());
         }
 
-        return redirect(route('trials.index'))->with('success','New student registered successfully');
     }
 
-    private function register_student_info($request){
-      if(Student::where('id',(int)$request->student_id)->exists()){
-        return $request->student_id;
+    private function check_existance_of_student($request){
+      $student_existance=Student::where(function($query) use ($request){
+        $query->where('jaName',remove_space($request->jaName))->orWhere('enName',$request->enName)->orWhere('kanaName',remove_space($request->kanaName));
+      })->where('email1',remove_space($request->email1))->where('grade',$request->grade)->where('address_id',$request->address)->exists();
+
+      if($student_existance){
+        throw new \Exception('この生徒はすでにデータベース上に存在します。名前検索から生徒情報をimportして登録してください。');
       }else{
-        $student=Student::create([
-          'grade'=>$request->grade,
-          'jaName'=>$request->jaName,
-          'kanaName'=>$request->kanaName,
-          'enName'=>$request->enName,
-          'tel1'=>$request->tel1,
-          'tel2'=>$request->tel2,
-          'email1'=>$request->email1,
-          'email2'=>$request->email2,
-          'address_id'=>$request->address,
-          'addDetails'=>$request->addDetails,
-          'note'=>$request->note,
-          'province'=>$request->province
-        ]);
-  
-         return $student->id;
+        return $this->register_student($request);  
+      }  
+    }
+
+    private function register_student($request){
+      $student=Student::create([
+        'grade'=>$request->grade,
+        'jaName'=>remove_space($request->jaName),
+        'kanaName'=>remove_space($request->kanaName),
+        'enName'=>$request->enName,
+        'tel1'=>$request->tel1,
+        'tel2'=>$request->tel2,
+        'email1'=>remove_space($request->email1),
+        'email2'=>remove_space($request->email2),
+        'address_id'=>$request->address,
+        'addDetails'=>$request->addDetails,
+        'province'=>$request->province
+      ]);
+
+      if($student->id){
+        return $student->id;
       }
       
-
     }
 
-    private function register_student_lesson($request,$last_inserted_id){
 
-       $student_lesson=StudentLesson::create([
-         'student_id'=>$last_inserted_id,
-         'lesson_id'=>$request->lesson,
-         'trial_date'=>$request->trialDate,
-         'status'=>4,
-         'bus'=>$request->busUse,
-         'pickup_id'=>$request->pickup,
-         'pickup_details'=>$request->pickupDetails,
-         'send_id'=>$request->send,
-         'send_details'=>$request->sendDetails,
-         'note'=>$request->note,
-       ]);
+    private function register_student_lesson($request,$last_inserted_id){
+       if(empty($request->trial_Date)){
+          $student_lesson=StudentLesson::create([
+            'student_id'=>$last_inserted_id,
+            'lesson_id'=>$request->lesson,
+            'trial_date'=>$request->trialDate,
+            'status'=>6,
+            'bus'=>$request->busUse,
+            'pickup_id'=>$request->pickup,
+            'pickup_details'=>$request->pickupDetails,
+            'send_id'=>$request->send,
+            'send_details'=>$request->sendDetails,
+            'note'=>$request->note,
+          ]);
+       }else{
+          $student_lesson=StudentLesson::create([
+            'student_id'=>$last_inserted_id,
+            'lesson_id'=>$request->lesson,
+            'trial_date'=>$request->trialDate,
+            'status'=>4,
+            'bus'=>$request->busUse,
+            'pickup_id'=>$request->pickup,
+            'pickup_details'=>$request->pickupDetails,
+            'send_id'=>$request->send,
+            'send_details'=>$request->sendDetails,
+            'note'=>$request->note,
+          ]);
+       }
+       
+
+       return $student_lesson;
 
     }
 
@@ -152,7 +196,13 @@ class TrialStudentsController extends Controller
     {
       $student=StudentLesson::whereBetween('status',[4,8])->find($id);
 
-      return view('trials.register')->with('student',$student)->with('lessons',Lesson::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
+      if($student->student->active_lessons->count() > 0){
+        return view('trials.register')->with('student',$student)->with('lessons',Lesson::orderBy('kana','asc')->get())->with('active',true)->with('places',Place::orderBy('name','asc')->get());
+      }else{
+        return view('trials.register')->with('student',$student)->with('lessons',Lesson::orderBy('kana','asc')->get())->with('active',false)->with('places',Place::orderBy('name','asc')->get());
+      }
+
+      
     }
 
     /**
@@ -178,23 +228,22 @@ class TrialStudentsController extends Controller
           'pickup_details'=>$request->pickupDetails,
           'send_id'=>$request->send,
           'send_details'=>$request->sendDetails,
-          'note'=>$request->note,
+          'note'=>$request->note
         ]);
 
         $student=Student::find($student_lesson->student_id);
 
         $student->update([
           'grade'=>$request->grade,
-          'jaName'=>$request->jaName,
-          'kanaName'=>$request->kanaName,
+          'jaName'=>remove_space($request->jaName),
+          'kanaName'=>remove_space($request->kanaName),
           'enName'=>$request->enName,
           'tel1'=>$request->tel1,
           'tel2'=>$request->tel2,
-          'email1'=>$request->email1,
-          'email2'=>$request->email2,
+          'email1'=>remove_space($request->email1),
+          'email2'=>remove_space($request->email2),
           'address_id'=>$request->address,
           'addDetails'=>$request->addDetails,
-          'note'=>$request->note,
           'province'=>$request->province
         ]);
 
@@ -213,8 +262,8 @@ class TrialStudentsController extends Controller
 
       if($request->input('type_of_list')==='trials'){
         $students=StudentLesson::whereBetween('status',[4,8])->whereHas('student',function($query) use ($request){
-          $query->where('jaName','like','%'.$request->searched_name.'%')->orWhere('kanaName','like','%'.$request->searched_name.'%')->orWhere('enName','like','%'.$request->searched_name.'%');
-        })->orderBy('created_at','desc')->get();
+          $query->where('jaName','like',remove_space($request->searched_name).'%')->orWhere('kanaName','like',remove_space($request->searched_name).'%')->orWhere('enName','like',remove_space($request->searched_name).'%');
+        })->whereNotNull('trial_date')->orderBy('created_at','desc')->get();
 
         return redirect(route('trials.index'))->with('searched_students',$students);
       }
@@ -223,7 +272,7 @@ class TrialStudentsController extends Controller
     // search student info in trial registration ajax
     public function get_stu_info(Request $request){
       $students=StudentLesson::groupBy('student_id')->whereHas('student',function($query)use($request){
-        $query->where('jaName','Like',"%{$request->name}%")->orWhere('kanaName','Like',"%{$request->name}%")->orWhere('enName','Like',"%{$request->name}%");
+        $query->where('jaName','Like',"{remove_space($request->name)}%")->orWhere('kanaName','Like',"{remove_space($request->name)}%")->orWhere('enName','Like',"{remove_space($request->name)}%");
       })->with('student')->get();
       return response()->json($students);
     }

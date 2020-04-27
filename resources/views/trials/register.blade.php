@@ -8,7 +8,7 @@
      
      @include('partials.alerts.error')
 
-     <div class="card mt-4 mx-auto">
+     <div class="card my-4 mx-auto">
        <div class="card-header">
          <h3>{{isset($student) ? 'Edit Trial Student' : 'Register Trial Student'}}</h3>
          @if(!isset($student))
@@ -71,7 +71,7 @@
            @include('partials.form.address')
            @include('partials.form.lesson')
            <div class="form-group">
-             <label for="trialDate">Trial Date<span class="badge badge-danger ml-2">Required</span></label>
+             <label for="trialDate">Trial Date</label>
              <input type="date" name="trialDate" id="trialDate" class="form-control" value="{{isset($student) ? $student->trial_date : old('trialDate')}}">
            </div>
            @include('partials.form.bususe')
@@ -83,7 +83,7 @@
            </div>
            <div class="form-group">
              <label for="Note">Note</label>
-             <input type="text" name="note" id="note" class="form-control" placeholder="Note for Bus Use" value="{{isset($student) ? $student->note : old('note')}}">
+             <input type="text" name="note" id="note" class="form-control" placeholder="Note for Bus Use 乗車人数など" value="{{isset($student) ? $student->note : old('note')}}">
            </div>
            <button type="submit" class="btn btn-info">{{isset($student)? "Update" : "Create"}}</button>
          </form>
@@ -168,7 +168,6 @@
         $('.card-body').prepend("<div class='generated_alert alert alert-danger'>体験するLessonを選んでください。</div><div class='generated_alert alert alert-danger'>Bus Useについても確認してください。</div>");
         $('#grade').children("option[value='"+students[number]['student']['grade']+"']").attr('selected','selected');
         $('#student_id').val(students[number]['student_id']);
-
         $('#jaName').val(students[number]['student']['jaName']);
         $('#kanaName').val(students[number]['student']['kanaName']);
         $('#enName').val(students[number]['student']['enName']);
@@ -218,9 +217,9 @@
           setTimeout(function(){
               $('.alert-success').slideUp();
             }, 2000);
-          $('#address').append("<option selected val="+data.id+">"+data.name+"</option>");
-          $('#send').append("<option selected val="+data.id+">"+data.name+"</option>");
-          $('#pickup').append("<option selected val="+data.id+">"+data.name+"</option>");
+          $('#address').append("<option selected value="+data.id+">"+data.name+"</option>");
+          $('#send').append("<option selected value="+data.id+">"+data.name+"</option>");
+          $('#pickup').append("<option selected value="+data.id+">"+data.name+"</option>");
         });
     });
 

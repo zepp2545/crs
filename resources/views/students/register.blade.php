@@ -84,7 +84,7 @@
             </div>
             <div class="form-group">
               <label for="addressDetails">Address Details</label>
-              <input type="text" id="addressDetails" name="addDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $student->address_details : old('addDetails')}}">
+              <input type="text" id="addressDetails" name="addDetails" class="form-control" placeholder="e.g. Room No, Buiding No" value="{{isset($student) ? $student->addDetails : old('addDetails')}}">
             </div>
            <div class="form-group">
              <label for="province">Province</label>
@@ -92,7 +92,7 @@
            </div>
            <div class="form-group">
              <label for="Note">Note</label>
-             <input type="text" name="note" id="note" class="form-control" placeholder="Note for Bus Use" value="{{isset($student) ? $student->note : old('note')}}">
+             <input type="text" name="note" id="note" class="form-control" placeholder="Note" value="{{isset($student) ? $student->note : old('note')}}">
            </div>
            <button type="submit" name="button" class="btn btn-info">Save</button>
          </form>
@@ -258,6 +258,10 @@
                           <div class="form-group">
                             <label for="quit_date{{$active_lesson->id}}">Lesson quit date</label>
                             <input type="date" id="quit_date{{$active_lesson->id}}" name="quit_date" class="form-control" value="{{isset($student) ? $active_lesson->quit_date : old('quit_date')}}">
+                          </div>
+                          <div class="form-group">
+                            <label for="bus_note{{$active_lesson->id}}">Note for bus</label>
+                            <input type="text" id="bust_note{{$active_lesson->id}}" name="bus_note" class="form-control" value="{{isset($student) ? $active_lesson->note : old('bus_note')}}" placeholder="e.g. how many passengers">
                           </div>
                       
                       </div>

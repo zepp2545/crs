@@ -28,47 +28,72 @@ class WaitingStudentsController extends Controller
 
   public function store(CreateWaitingStudentRequest $request)
   {
-      DB::beginTransaction();
+    $last_inserted_id=0;
+    $student_existance=false;
+
+    DB::beginTransaction();
 
       try{
-        $last_inserted_id=$this->register_student_info($request);
+          //check if this post comes with imported student info. if empty if true,it means they filled in form on their own.
+          if(empty($request->student_id)){
+            $last_inserted_id=$this->check_existance_of_student($request);
+          }else{
+            $student_existance=Student::where('id',(int)$request->student_id)
+            ->where('jaName',remove_space($request->jaName))->where('enName',$request->enName)->where('kanaName',remove_space($request->kanaName))
+            ->where('grade',$request->grade)->exists();
 
-        $this->register_student_lesson($request,$last_inserted_id);
+            if($student_existance){
+              $last_inserted_id=$request->student_id;
+            }else{
+              $last_inserted_id=$this->check_existance_of_student($request);   
+            }
+          }
 
-
-        DB::commit();
+          if($this->register_student_lesson($request,$last_inserted_id)){
+            DB::commit();
+            return redirect(route('waitings.index'))->with('success','New student registered successfully');
+          }
 
       }catch(\Exception $e){
-        DB::rollback();
-        return $e->getMessage();
+          DB::rollback();
+          return redirect()->back()->with('student_existing_error',$e->getMessage());
       }
 
-      return redirect(route('waitings.index'))->with('success','New student registered successfully');
   }
 
-  private function register_student_info($request){
-    if(Student::where('id',(int)$request->student_id)->exists()){
-      return $request->student_id;
+  private function check_existance_of_student($request){
+    $student_existance=Student::where(function($query) use ($request){
+      $query->where('jaName',remove_space($request->jaName))->orWhere('enName',$request->enName)->orWhere('kanaName',remove_space($request->kanaName));
+    })->where('email1',remove_space($request->email1))->where('grade',$request->grade)->where('address_id',$request->address)->exists();
+
+    if($student_existance){
+      throw new \Exception('この生徒はすでにデータベース上に存在します。名前検索から生徒情報をimportして登録してください。');
     }else{
-      $student=Student::create([
-        'grade'=>$request->grade,
-        'jaName'=>$request->jaName,
-        'kanaName'=>$request->kanaName,
-        'enName'=>$request->enName,
-        'tel1'=>$request->tel1,
-        'tel2'=>$request->tel2,
-        'email1'=>$request->email1,
-        'email2'=>$request->email2,
-        'address_id'=>$request->address,
-        'addDetails'=>$request->addDetails,
-        'note'=>$request->note,
-        'province'=>$request->province
-      ]);
-    }
-
-     return $student->id;
-
+      return $this->register_student($request);  
+    }  
   }
+
+  private function register_student($request){
+    $student=Student::create([
+      'grade'=>$request->grade,
+      'jaName'=>remove_space($request->jaName),
+      'kanaName'=>remove_space($request->kanaName),
+      'enName'=>$request->enName,
+      'tel1'=>$request->tel1,
+      'tel2'=>$request->tel2,
+      'email1'=>remove_space($request->email1),
+      'email2'=>remove_space($request->email2),
+      'address_id'=>$request->address,
+      'addDetails'=>$request->addDetails,
+      'province'=>$request->province
+    ]);
+
+    if($student->id){
+      return $student->id;
+    }
+    
+  }
+
 
   private function register_student_lesson($request,$last_inserted_id){
 
@@ -83,6 +108,8 @@ class WaitingStudentsController extends Controller
        'send_details'=>$request->sendDetails,
        'note'=>$request->note,
      ]);
+
+     return $student_lesson;
 
   }
 
@@ -99,7 +126,7 @@ class WaitingStudentsController extends Controller
 
   public function edit($id)
   {
-    $student=StudentLesson::whereBetween('status',[1,4])->find($id);
+    $student=StudentLesson::whereBetween('status',[1,3])->find($id);
 
     return view('waitings.register')->with('student',$student)->with('lessons',LessonGroup::orderBy('kana','asc')->get())->with('places',Place::all());
   }
@@ -110,7 +137,7 @@ class WaitingStudentsController extends Controller
 
     try{
 
-      $student_lesson=StudentLesson::whereBetween('status',[1,2])->find($id);
+      $student_lesson=StudentLesson::whereBetween('status',[1,3])->find($id);
 
       $student_lesson->update([
         'lesson_group_id'=>$request->lesson,
@@ -127,13 +154,13 @@ class WaitingStudentsController extends Controller
 
       $student->update([
         'grade'=>$request->grade,
-        'jaName'=>$request->jaName,
-        'kanaName'=>$request->kanaName,
+        'jaName'=>remove_space($request->jaName),
+        'kanaName'=>remove_space($request->kanaName),
         'enName'=>$request->enName,
         'tel1'=>$request->tel1,
         'tel2'=>$request->tel2,
-        'email1'=>$request->email1,
-        'email2'=>$request->email2,
+        'email1'=>remove_space($request->email1),
+        'email2'=>remove_space($request->email2),
         'address_id'=>$request->address,
         'addDetails'=>$request->addDetails,
         'note'=>$request->note,
@@ -152,7 +179,7 @@ class WaitingStudentsController extends Controller
     // search student info in trial registration ajax
     public function get_stu_info(Request $request){
       $students=StudentLesson::groupBy('student_id')->whereHas('student',function($query)use($request){
-        $query->where('jaName','Like',"%{$request->name}%")->orWhere('kanaName','Like',"%{$request->name}%")->orWhere('enName','Like',"%{$request->name}%");
+        $query->where('jaName','Like',"{remove_space($request->name)}%")->orWhere('kanaName','Like',"{remove_space($request->name)}%")->orWhere('enName','Like',"{remove_space($request->name)}%");
       })->with('student')->get();
       return response()->json($students);
     }
