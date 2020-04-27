@@ -63,7 +63,7 @@ input,select{
 }
 
 .trialList{
-  height:88%;
+  height:85%;
   overflow:scroll;
 }
 
@@ -75,7 +75,7 @@ input,select{
 
 .trial.searchContent{
   height:20px;
-  min-height:180px;
+  min-height:200px;
 }
 
 #nameSearchInput{
