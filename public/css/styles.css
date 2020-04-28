@@ -56,7 +56,7 @@ input,select{
 .studentList{
   overflow: scroll;
   width:100%;
-  height:75%;
+  height:65%;
   min-height:300px;
   /* margin:auto; */
   padding:5px;
@@ -69,12 +69,12 @@ input,select{
 
 
 .listWrapper{
-  height:80%;
+  height:75%;
   min-height:300px;
 }
 
 .trial.searchContent{
-  height:20px;
+  height:20%;
   min-height:200px;
 }
 
