@@ -3,7 +3,7 @@
 
 @section('content')
 @include('partials.alerts.success')
-  <div class="searchContent py-4">
+  <div class="searchContent pt-2 pb-4">
     <h2 class="mb-4">Student List</h2>
     <form action="{{route('students.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
         @csrf
