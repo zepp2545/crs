@@ -2,7 +2,7 @@
 
 @section('content')
   @include('partials.alerts.success')
-  <div class="searchContent trial pt-2 pb-2">
+  <div class="searchContent trial pt-2 pb-3">
     <h2>Trial Student List</h2>
     <ul>
     <li>「Status」を「受講中」に更新することでStudent Listに反映されるため、常にアップデートしてください。</li>
