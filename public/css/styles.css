@@ -67,12 +67,12 @@ input,select{
 
 
 .listWrapper{
-  height:75%;
+  height:72%;
 }
 
-.trial.searchContent{
+/* .trial.searchContent{
   height:25%;
-}
+} */
 
 #nameSearchInput{
   width:300px !important;
