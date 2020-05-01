@@ -9,6 +9,7 @@ use App\Place;
 use App\StudentLesson;
 use App\Student;
 use App\Http\Requests\Trials\CreateStudentRequest;
+use Carbon\Carbon;
 
 
 class TrialStudentsController extends Controller
@@ -23,7 +24,9 @@ class TrialStudentsController extends Controller
       if(session('searched_students')){
         $students=session('searched_students');
       }else{
-        $students=StudentLesson::whereBetween('status',[4,8])->orderByRaw('trial_date is null desc')->orderBy('trial_date','desc')->get();
+        $students=StudentLesson::whereBetween('status',[4,8])->where(function($query){
+          $query->whereNull('trial_date')->orWhere('trial_date','>',Carbon::now()->subYear());
+        })->orderByRaw('trial_date is null desc')->orderBy('trial_date','desc')->get();
       }
 
       return view('trials.index')->with('students',$students);

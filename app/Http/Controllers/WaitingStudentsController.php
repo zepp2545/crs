@@ -10,6 +10,7 @@ use App\Place;
 use App\StudentLesson;
 use App\Student;
 use App\Http\Requests\Waitings\CreateWaitingStudentRequest;
+use Carbon\Carbon;
 
 class WaitingStudentsController extends Controller
 {
@@ -117,7 +118,7 @@ class WaitingStudentsController extends Controller
 
   public function get_student_ajax(Request $request){
     $lesson_id=$request->input('id');
-    $students=StudentLesson::where('lesson_group_id',$lesson_id)->whereBetween('status',[1,4])->with(['student'=> function($query){
+    $students=StudentLesson::where('lesson_group_id',$lesson_id)->where('created_at','>',Carbon::now()->subYear())->whereBetween('status',[1,4])->with(['student'=> function($query){
       $query->with('address');
     }])->orderBy('created_at','asc')->with('lesson_group')->with('send')->with('pickup')->get();
 

@@ -6,6 +6,7 @@
     <h2>Trial Student List</h2>
     <ul>
     <li>「Status」を「受講中」に更新することでStudent Listに反映されるため、常にアップデートしてください。</li>
+    <li>その日から過去1年以内の体験日の生徒のみを表示しています。体験生のデータを収集する際は定期的にエクセルにデータを取ってください。</li>
     </ul>
     <form action="{{route('trials.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
         @csrf
