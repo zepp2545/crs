@@ -138,7 +138,7 @@
 
     var students;
 
-    // get student infomation to display list of students
+    // get student infomation to list students
 
     $('#name_search').keypress(function(e){
       if(e.which==13){

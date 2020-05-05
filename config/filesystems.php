@@ -64,6 +64,13 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'sftp' => [
+            'driver'=> 'sftp',
+            'host' => '192.168.1.35',
+            'username' => 'Konan Maruyama',
+            'password' => 'k25458565',
+        ],
+
     ],
 
 ];

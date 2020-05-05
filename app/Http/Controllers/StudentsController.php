@@ -10,6 +10,7 @@ use App\Lesson;
 use App\Place;
 use App\Student;
 use App\StudentLesson;
+use Carbon\Carbon;
 
 class StudentsController extends Controller
 {
@@ -26,7 +27,7 @@ class StudentsController extends Controller
       }else{
         $students=Student::whereHas('active_lessons',function($query){
           $query->whereBetween('status',[7,9]);
-		})->orderByRaw("case
+		     })->orderByRaw("case
 			   when grade='H1' then 1
                when grade='J3' then 2
                when grade='J2' then 3
@@ -265,6 +266,8 @@ class StudentsController extends Controller
     }
 
     public function dropouts(){
+      $this->delete_dropouts();
+
       if(session('searched_students')){
         $students=session('searched_students');
       }else{
@@ -272,6 +275,21 @@ class StudentsController extends Controller
       }
 
       return view('students/dropouts')->with('students',$students);
+    }
+
+    private function delete_dropouts(){
+      $student_lessons=StudentLesson::onlyTrashed()->where('deleted_at','<=',Carbon::now()->subSecond(20))->with('student')->get();
+      if($student_lessons){
+        foreach($student_lessons as $student_lesson){
+          if($student_lesson->student->student_lessons->count()==0){
+            $student_lesson->student->delete();
+          }
+  
+          $student_lesson->forceDelete();
+        }
+      }
+      
+
     }
 
 

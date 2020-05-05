@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Storage;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +25,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('backup:clean --disable-notifications');
+        $schedule->command('backup:run　--disable-notifications');
+
+    //     $schedule->call(function(){
+    //         $files=Storage::files('Laravel');
+
+    //         if(count($files)){
+    //             Storage::disk('sftp')->put('Backup/'.date('Ymd_His').'_bkup.zip', Storage::get($files[0]));
+    //         }
+    //    });
+       
+       // $schedule->command('inspire')
+       //          ->hourly();
     }
 
     /**

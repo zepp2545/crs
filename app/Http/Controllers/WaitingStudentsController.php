@@ -180,7 +180,7 @@ class WaitingStudentsController extends Controller
     // search student info in trial registration ajax
     public function get_stu_info(Request $request){
       $students=StudentLesson::groupBy('student_id')->whereHas('student',function($query)use($request){
-        $query->where('jaName','Like',"{remove_space($request->name)}%")->orWhere('kanaName','Like',"{remove_space($request->name)}%")->orWhere('enName','Like',"{remove_space($request->name)}%");
+        $query->where('jaName','Like',remove_space($request->name).'%')->orWhere('kanaName','Like',remove_space($request->name).'%')->orWhere('enName','Like',remove_space($request->name).'%');
       })->with('student')->get();
       return response()->json($students);
     }

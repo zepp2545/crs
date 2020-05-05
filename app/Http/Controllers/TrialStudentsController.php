@@ -124,7 +124,7 @@ class TrialStudentsController extends Controller
             'student_id'=>$last_inserted_id,
             'lesson_id'=>$request->lesson,
             'trial_date'=>$request->trialDate,
-            'status'=>6,
+            'status'=>4,
             'bus'=>$request->busUse,
             'pickup_id'=>$request->pickup,
             'pickup_details'=>$request->pickupDetails,
@@ -275,7 +275,7 @@ class TrialStudentsController extends Controller
     // search student info in trial registration ajax
     public function get_stu_info(Request $request){
       $students=StudentLesson::groupBy('student_id')->whereHas('student',function($query)use($request){
-        $query->where('jaName','Like',"{remove_space($request->name)}%")->orWhere('kanaName','Like',"{remove_space($request->name)}%")->orWhere('enName','Like',"{remove_space($request->name)}%");
+        $query->where('jaName','like',remove_space($request->name).'%')->orWhere('kanaName','like',remove_space($request->name).'%')->orWhere('enName','like',remove_space($request->name).'%');
       })->with('student')->get();
       return response()->json($students);
     }
