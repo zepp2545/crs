@@ -6,6 +6,7 @@
   <div class="searchContent py-2">
     <h2>Cancelation List</h2>
     <p>講座を辞めた生徒の情報がこちらに記載されます。Student Listに戻すには「Restore」をしてください。</p>
+    <p>講座を辞めてから2年間データが保持されます。2年間経過すると自動的に削除されるので定期的にデータを取ってください。</p>
     <form action="{{route('students.quit.search')}}" method="post" id="name_search"> <!--Dot't forget adding double curly braces to display. -->
         @csrf
     
