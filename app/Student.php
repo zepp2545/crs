@@ -23,5 +23,10 @@ class Student extends Model
      return $this->hasMany('App\StudentLesson','student_id')->whereBetween('status',[7,9]);
    }
 
+   // retirieve all student_lessons including the trashed, which is used in Trial delete.
+   public function student_lessons_with_trashed(){
+     return $this->hasMany('App\StudentLesson','student_id')->withTrashed();
+   }
+
 
 }

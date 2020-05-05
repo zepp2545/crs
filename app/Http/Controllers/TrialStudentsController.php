@@ -21,6 +21,8 @@ class TrialStudentsController extends Controller
      */
     public function index()
     {
+      $this->delete_trial_students();
+
       if(session('searched_students')){
         $students=session('searched_students');
       }else{
@@ -30,6 +32,20 @@ class TrialStudentsController extends Controller
       }
 
       return view('trials.index')->with('students',$students);
+    }
+
+    private function delete_trial_students(){
+      $student_lessons=StudentLesson::withTrashed()->where('status',5)->where('updated_at','<=',Carbon::now()->subSecond(20))->with('student')->get();
+
+      if($student_lessons){
+        foreach($student_lessons as $student_lesson){
+          if($student_lesson->student->student_lessons_with_trashed->count()==1){
+            $student_lesson->student->delete();
+          }
+
+          $student_lesson->forceDelete();
+        }
+      }
     }
 
     /**

@@ -278,7 +278,7 @@ class StudentsController extends Controller
     }
 
     private function delete_dropouts(){
-      $student_lessons=StudentLesson::onlyTrashed()->where('deleted_at','<=',Carbon::now()->subSecond(20))->with('student')->get();
+      $student_lessons=StudentLesson::onlyTrashed()->where('deleted_at','<=',Carbon::now()->subYear(2))->with('student')->get();
       if($student_lessons){
         foreach($student_lessons as $student_lesson){
           if($student_lesson->student->student_lessons->count()==0){
