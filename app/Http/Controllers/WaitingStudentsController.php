@@ -16,6 +16,7 @@ class WaitingStudentsController extends Controller
 {
   public function index()
   {
+    $this->delete_waiting_students();
     return view('waitings.index')->with('lessons',LessonGroup::orderBy('kana','asc')->get());
   }
 
@@ -23,6 +24,20 @@ class WaitingStudentsController extends Controller
   public function create()
   {
       return view('waitings.register')->with('lessons',LessonGroup::orderBy('kana','asc')->get())->with('places',Place::orderBy('name','asc')->get());
+  }
+
+  private function delete_waiting_students(){
+    $student_lessons=StudentLesson::withTrashed()->where('status',2)->where('updated_at','<=',Carbon::now()->subSecond(20))->with('student')->get();
+
+    if($student_lessons){
+      foreach($student_lessons as $student_lesson){
+        if($student_lesson->student->student_lessons_with_trashed->count()==1){
+          $student_lesson->student->delete();
+        }
+
+        $student_lesson->forceDelete();
+      }
+    }
   }
 
 

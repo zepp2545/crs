@@ -5,6 +5,7 @@
   @include('partials.alerts.success')
   <div class="selectLesson">
     <h2>Waiting Students List</h2>
+      <p>キャンセル済みの生徒に関しては1年間だけデータが保持されます。</p>
       @include('partials.form.lesson')
   </div>
 
@@ -113,11 +114,12 @@
              var pickup=data[i]['pickup']?data[i]['pickup']['name']:'';
              var send=data[i]['send']?data[i]['send']['name']:'';
              var application_date=new Date(data[i]['created_at']);
+             console.log(data[i]['created_at']);
              cloned_row.removeClass('d-none');
              cloned_row.removeClass('table_row_model');
              cloned_row.addClass('cloned_row');
              cloned_row.attr('data-id',data[i]['id']);
-             cloned_row.find('.application_date').text(application_date.getFullYear()+"-"+"0"+String(application_date.getMonth()+1)+"-"+application_date.getDate());
+             cloned_row.find('.application_date').text(application_date.getFullYear()+"-"+("0"+String(application_date.getMonth()+1)).slice(-2)+"-"+("0"+application_date.getDate()).slice(-2));
              cloned_row.find('.grade').text(data[i]['student']['grade']);
              cloned_row.find('.jaName').text(data[i]['student']['jaName']);
              cloned_row.find('.kanaName').text(data[i]['student']['kanaName']);
