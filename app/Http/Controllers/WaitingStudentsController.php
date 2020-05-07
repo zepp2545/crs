@@ -27,7 +27,7 @@ class WaitingStudentsController extends Controller
   }
 
   private function delete_waiting_students(){
-    $student_lessons=StudentLesson::withTrashed()->where('status',2)->where('updated_at','<=',Carbon::now()->subSecond(20))->with('student')->get();
+    $student_lessons=StudentLesson::withTrashed()->where('status',2)->where('updated_at','<=',Carbon::now()->subYear(2))->with('student')->get();
 
     if($student_lessons){
       foreach($student_lessons as $student_lesson){

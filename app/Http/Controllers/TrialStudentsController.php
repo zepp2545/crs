@@ -35,7 +35,7 @@ class TrialStudentsController extends Controller
     }
 
     private function delete_trial_students(){
-      $student_lessons=StudentLesson::withTrashed()->where('status',5)->where('updated_at','<=',Carbon::now()->subSecond(20))->with('student')->get();
+      $student_lessons=StudentLesson::withTrashed()->where('status',5)->where('updated_at','<=',Carbon::now()->subYear(1))->with('student')->get();
 
       if($student_lessons){
         foreach($student_lessons as $student_lesson){
