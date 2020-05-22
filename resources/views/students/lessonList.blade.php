@@ -102,9 +102,13 @@
             
 
             if(data[i]){
-              if((data[i]['status']===4 || data[i]['status']===6) && Date.parse(data[i]['trial_date'])+(1000*60*60*24)>=date.getTime()){
+              if(data[i]['status']===4){
                   cloned_row.addClass('trial');
-                  cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Trial Date: "+get_date_with_day(data[i]['trial_date'])+"</span>");      
+				  if(data[i]['trial_date']==null){
+					cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Trial Date: Not confirmed yet");  
+				  }else{
+					  cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Trial Date: "+get_date_with_day(data[i]['trial_date'])+"</span>");
+				  }  
               }else if((data[i]['status']===7 || data[i]['status']===8)&&Date.parse(data[i]['start_date'])+(1000*60*60*24)>=date.getTime()){
                 cloned_row.find('.jaName').html(data[i]['student']['jaName']+"<br><span class='important'>Start Date: "+get_date_with_day(data[i]['start_date'])+"</span>");
               }else if(data[i]['status']===9){
