@@ -66,7 +66,7 @@ return [
 
         'sftp' => [
             'driver'=> 'sftp',
-            'host' => '192.168.1.35',
+            'host' => '192.168.1.106',
             'username' => 'Konan Maruyama',
             'password' => 'k25458565',
         ],
