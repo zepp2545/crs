@@ -91,16 +91,6 @@ class StudentsController extends Controller
       return redirect(route('students.edit',['id'=>$student]))->with('success','Student Basic info is updated successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -149,17 +139,6 @@ class StudentsController extends Controller
         
         return redirect(route('students.edit',['id'=>$id]))->with('success','Student Basic info is updated successfully.');
     }   
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
 
      // search Regular student

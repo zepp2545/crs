@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/','StudentsController@index');
 
 // trial student
@@ -36,7 +25,6 @@ Route::put('waitings/update/{id}','WaitingStudentsController@update')->name('wai
 //Regular student List
 //this route has to be removed later.
 Route::post('students/lesson_store/{id}','StudentsController@student_lesson_store')->name('students.student_lesson_store');
-
 Route::post('students/lessonList','StudentsController@lessonList_ajax')->name('students.lessonList_ajax');
 Route::put('students/dropouts/{id}','StudentsController@restore')->name('students.restore');
 Route::get('students/lessonList','StudentsController@lessonList')->name('students.lessonList');
@@ -45,7 +33,7 @@ Route::post('students/quit/search','StudentsController@quit_search')->name('stud
 Route::put('students/{id}/update','StudentsController@lesson_update')->name('students.lesson_update');
 Route::delete('students/lesson/{id}','StudentsController@lesson_delete')->name('students.lesson_delete');
 Route::get('students/dropouts','StudentsController@dropouts')->name('students.dropouts');
-Route::resource('students','StudentsController');
+Route::resource('students','StudentsController',['except'=>['show', 'destroy']]);
 
 //Bulk email
 Route::get('bulkemail/create','BulkEmailController@create')->name('bulkemail.create');
