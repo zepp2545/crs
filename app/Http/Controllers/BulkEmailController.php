@@ -99,7 +99,7 @@ class BulkEmailController extends Controller
        }
 
          Mail::raw($request->body,function($message)use($data){
-            $message->to(config('env.mail_to_address'),'受付担当');
+            $message->to(config('mail.from.address'), config('mail.from.name'));
             $message->subject($data['subject']);
             $message->bcc($data['addresses']);
             if(!empty($data['files'])){
@@ -113,6 +113,6 @@ class BulkEmailController extends Controller
          
       });
 
-      return redirect(route('bulkemail.create'))->with('success','Email has been sent successfully.');
+      return redirect(route('mainl.create'))->with('success','Email has been sent successfully.');
    }
 }
