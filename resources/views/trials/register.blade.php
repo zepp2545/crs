@@ -155,7 +155,7 @@
             $('#stu_list ul').append("<li data-id='"+i+"'>"+data[i]['student']['jaName']+"&nbsp&nbsp&nbsp<button class='import btn btn-primary btn-sm mb-2' type='button'>Import</button></li>");
           }
           
-        })
+        });
       }
     });
 
@@ -224,13 +224,6 @@
     });
 
    
-    
-
-
-
-
-
-
   });
 
 </script>
