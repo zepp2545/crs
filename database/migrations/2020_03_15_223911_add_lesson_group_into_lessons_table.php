@@ -14,7 +14,7 @@ class AddLessonGroupIntoLessonsTable extends Migration
     public function up()
     {
         Schema::table('student_lessons', function (Blueprint $table) {
-            $table->bigInteger('lesson_group_id');
+            $table->bigInteger('lesson_group_id')->nullable();
           });
     }
 
