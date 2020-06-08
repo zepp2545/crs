@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -100,7 +99,7 @@ class BulkEmailController extends Controller
        }
 
          Mail::raw($request->body,function($message)use($data){
-            $message->to('info@liclass.com','Liclass受付担当');
+            $message->to(config('env.mail_to_address'),'受付担当');
             $message->subject($data['subject']);
             $message->bcc($data['addresses']);
             if(!empty($data['files'])){

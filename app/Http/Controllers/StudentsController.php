@@ -310,8 +310,5 @@ class StudentsController extends Controller
       }
     }
 
-
-
-  
 }
 
