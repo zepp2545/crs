@@ -7,7 +7,7 @@ Route::post('trials/lesson_ajax','TrialStudentsController@lesson_ajax')->name('t
 Route::post('trials/search','TrialStudentsController@search')->name('trials.search');
 Route::post('trials/status','TrialStudentsController@change_status_ajax')->name('trials.status');
 Route::resource('trials','TrialStudentsController');
-Route::post('/trials/get_stu_info','TrialStudentsController@get_stu_info')->name('trials.get_stu_info');
+Route::post('trials/get_stu_info','TrialStudentsController@get_stu_info')->name('trials.get_stu_info');
 
 
 
