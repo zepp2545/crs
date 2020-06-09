@@ -149,13 +149,18 @@
           type:'POST',
           url:"{{route('trials.get_stu_info')}}",
           data:{name:name,_token:'{{csrf_token()}}'}
-        }).done(function(data){
+        }).success(function(data){
           students=data;
           for(var i=0;i<data.length;i++){
             $('#stu_list ul').append("<li data-id='"+i+"'>"+data[i]['student']['jaName']+"&nbsp&nbsp&nbsp<button class='import btn btn-primary btn-sm mb-2' type='button'>Import</button></li>");
           }
           
-        });
+        }).error(function(XMLHttpRequest, textStatus, errorThrown) {
+          alert('error!!!');
+          console.log("XMLHttpRequest : " + XMLHttpRequest.status);
+          console.log("textStatus     : " + textStatus);
+          console.log("errorThrown    : " + errorThrown.message);
+          });
       }
     });
 
